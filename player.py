@@ -78,7 +78,8 @@ class CatanPlayer:
 
         """
         ################################ Insert/Modify CODE HERE ##################################
-        position, target_player_nr = int(input('insert argument')), int(input('insert argument'))
+        position, target_player_nr = int(
+            input('insert argument')), int(input('insert argument'))
         return position, target_player_nr
 
     def play_roads(self, board):
@@ -90,7 +91,8 @@ class CatanPlayer:
 
         """
         ################################ Insert/Modify CODE HERE ##################################
-        position1, position2 = int(input('insert argument')), int(input('insert argument'))
+        position1, position2 = int(input('insert argument')), int(
+            input('insert argument'))
         return position1, position2
 
     def play_plenty(self, board):
@@ -102,7 +104,8 @@ class CatanPlayer:
         """
         ################################ Insert/Modify CODE HERE ##################################
 
-        resource1, resource2 = int(input('insert argument')), int(input('insert argument'))
+        resource1, resource2 = int(input('insert argument')), int(
+            input('insert argument'))
         return resource1, resource2
 
     def play_mono(self, board):
@@ -123,7 +126,8 @@ class CatanPlayer:
 
         """
         ################################ Insert/Modify CODE HERE ##################################
-        resource_own, resource_bank = int(input('insert argument')), int(input('insert argument'))
+        resource_own, resource_bank = int(
+            input('insert argument')), int(input('insert argument'))
         return resource_own, resource_bank
 
     def trade_offer(self, board):
@@ -139,7 +143,8 @@ class CatanPlayer:
                 sheep --integer 0-19
         """
         ################################ Insert/Modify CODE HERE ##################################
-        resources_own, target_player_nr, resources_target = input('insert argument'),
+        resources_own, target_player_nr, resources_target = input(
+            'insert argument'),
         input('insert argument'), input('insert argument')
 
         return resources_own, target_player_nr, resources_target
@@ -163,7 +168,8 @@ class CatanPlayer:
         """
         ################################ Insert/Modify CODE HERE ##################################
 
-        settle_position, road_position = int(input('insert argument')), int(input('insert argument'))
+        settle_position, road_position = int(
+            input('insert argument')), int(input('insert argument'))
         return settle_position, road_position
 
     def start_settelment_first(self, board):
@@ -175,7 +181,8 @@ class CatanPlayer:
         """
         ################################ Insert/Modify CODE HERE ##################################
 
-        settle_position, road_position = int(input('insert argument')), int(input('insert argument'))
+        settle_position, road_position = int(
+            input('Place your Settlement')), int(input('Place your Road'))
         return settle_position, road_position
 
 

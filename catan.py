@@ -9,8 +9,11 @@ PORTS_NAMES = ["3:1", "2brick:1", "2ore:1", "2hay:1", "2wood:1", "2sheep:1"]
 # Create a dictionary of each port and a corresponding number id
 port_dict = dict(zip(PORTS_NAMES, np.arange(0, len(PORTS_NAMES))))
 # Create a dictionary of each dev card and a corresponding number id
-DEVELOPMENT_CARD_NAMES = ["knight","victory point", "road building", "year of plenty",  "monopoly"]
-dev_dict = dict(zip(DEVELOPMENT_CARD_NAMES,np.arange(0, len(DEVELOPMENT_CARD_NAMES))))
+DEVELOPMENT_CARD_NAMES = ["knight", "victory point",
+                          "road building", "year of plenty",  "monopoly"]
+dev_dict = dict(zip(DEVELOPMENT_CARD_NAMES,
+                    np.arange(0, len(DEVELOPMENT_CARD_NAMES))))
+
 
 class CatanBoard:
     # Initialize the Catan Board with all the options for resources, numbers to be rolled,
@@ -31,7 +34,8 @@ class CatanBoard:
         # Shuffle the resource array for randomized distribution
         np.random.shuffle(self.board_resources)
         # number associated with the desert and 0 can not actually be rolled
-        self.roll_numbers = np.array([0, 2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12])
+        self.roll_numbers = np.array(
+            [0, 2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12])
         # shuffle number options
         np.random.shuffle(self.roll_numbers)
         # Array of the port ids, amount of times each port is available -
@@ -57,18 +61,19 @@ class CatanBoard:
         self.roll_numbers[zero_tile_nr], self.roll_numbers[desert_tile_nr] = (self.roll_numbers[desert_tile_nr],
                                                                               self.roll_numbers[zero_tile_nr])
         # bank resources  "brick", "ore", "hay", "wood", "sheep"
-        self.bank = np.array([19,19,19,19])
+        self.bank = np.array([19, 19, 19, 19])
         # player_points player0, player1, player2, player3
-        self.player_points = [0,0,0,0]
+        self.player_points = [0, 0, 0, 0]
         # longest road player_number initialisation with -1
         self.longest_road = -1
         # longest largest_army player_number initialisation with -1
         self.largest_army = -1
         # devcards according to dev_dict dictionary
-        self.bank_devcards = np.array([14*[dev_dict["knight"]] + 5*[dev_dict["victory point"]] + 2*[dev_dict["road building"]] + 2*[dev_dict["year of plenty"]] + 2*[dev_dict["monopoly"]]])
+        self.bank_devcards = np.array([14*[dev_dict["knight"]] + 5*[dev_dict["victory point"]] + 2*[
+                                      dev_dict["road building"]] + 2*[dev_dict["year of plenty"]] + 2*[dev_dict["monopoly"]]])
         np.random.shuffle(self.bank_devcards)
         # played open knight cards for each player
-        self.open_knights = [0,0,0,0]
+        self.open_knights = [0, 0, 0, 0]
         # hidden unplayed dev cards for each player
         # as 2d materix  dev_dict x  player_nr
         self.hidden_dev_cards = np.array([[0]*5]*4)
@@ -77,6 +82,7 @@ class CatanBoard:
         self.new_hidden_dev_card = np.array([[0]*5]*4)
 
     # String output for printing the board
+
     def __str__(self):
         """
         ################################ Insert/Modify Comments HERE ##################################
@@ -84,25 +90,89 @@ class CatanBoard:
         output -- str
         """
         ################################ Insert/Modify CODE HERE ##################################
-        out = "\n"
-        # Port pointer starts at zero and will be incremented as ports are used
-        port_nr = 0
-        # For each slot in the board - add the resource and roll_number at the corresponding index
-        for tile_nr in range(self.number_of_tiles):
-            out += RESOURCE_NAMES[self.board_resources[tile_nr]] + "-" + str(self.roll_numbers[tile_nr]) + " "
-            # if the current tile is next to a port - add in the port
-            if tile_nr in [2, 6, 11, 15, 18]:
-                out += " " + PORTS_NAMES[self.ports[port_nr]] + "\n"
-                # if the tile is not at the end of the board - add in a second port on the next line
-                if tile_nr < 18:
-                    out += PORTS_NAMES[self.ports[port_nr + 1]] + " "
-                # Increment the port pointer by 2
-                port_nr += 2
         """ Return the output string with all the resources, numbers, and ports to be printed when needed.
         The robber should be added to this output to keep track of where it is.
-        Also, I think the output could use better formatting to differentiate between ports and resources and to 
+        Also, I think the output could use better formatting to differentiate between ports and resources and to
         be easier to look at. """
-        return out
+
+        # updated print function to something readable.
+
+        printed_board = ''
+        tiles = self.board_resources
+        values = self.roll_numbers
+        printed_board += '{:>20}{:>48}\n\n'.format(
+            PORTS_NAMES[self.ports[0]],
+            PORTS_NAMES[self.ports[1]]
+        )
+        printed_board += '{:>30}{:>15}{:>15}\n'.format(
+            RESOURCE_NAMES[tiles[0]],
+            RESOURCE_NAMES[tiles[1]],
+            RESOURCE_NAMES[tiles[2]]
+        )
+        printed_board += '{:>28}{:>15}{:>15}{:>20}\n\n'.format(
+            str(values[0]),
+            str(values[1]),
+            str(values[2]),
+            PORTS_NAMES[self.ports[2]]
+        )
+        printed_board += '{:>10}{:>12}{:>18}{:>18}{:>18}\n'.format(
+            PORTS_NAMES[self.ports[3]],
+            RESOURCE_NAMES[tiles[3]],
+            RESOURCE_NAMES[tiles[4]],
+            RESOURCE_NAMES[tiles[5]],
+            RESOURCE_NAMES[tiles[6]]
+        )
+        printed_board += '{:>20}{:>18}{:>18}{:>18}\n\n'.format(
+            str(values[3]),
+            str(values[4]),
+            str(values[5]),
+            str(values[6])
+        )
+        printed_board += '{:>17}{:>12}{:>18}{:>18}{:>18}\n'.format(
+            RESOURCE_NAMES[tiles[7]],
+            RESOURCE_NAMES[tiles[8]],
+            RESOURCE_NAMES[tiles[9]],
+            RESOURCE_NAMES[tiles[10]],
+            RESOURCE_NAMES[tiles[11]]
+        )
+        printed_board += '{:>15}{:>12}{:>18}{:>18}{:>18}{:>15}\n\n'.format(
+            str(values[7]),
+            str(values[8]),
+            str(values[9]),
+            str(values[10]),
+            str(values[11]),
+            PORTS_NAMES[self.ports[4]]
+        )
+        printed_board += '{:>10}{:>12}{:>18}{:>18}{:>18}\n'.format(
+            PORTS_NAMES[self.ports[5]],
+            RESOURCE_NAMES[tiles[12]],
+            RESOURCE_NAMES[tiles[13]],
+            RESOURCE_NAMES[tiles[14]],
+            RESOURCE_NAMES[tiles[15]]
+        )
+        printed_board += '{:>20}{:>18}{:>18}{:>18}\n\n'.format(
+            str(values[12]),
+            str(values[13]),
+            str(values[14]),
+            str(values[15])
+        )
+        printed_board += '{:>30}{:>15}{:>15}\n'.format(
+            RESOURCE_NAMES[tiles[16]],
+            RESOURCE_NAMES[tiles[17]],
+            RESOURCE_NAMES[tiles[18]]
+        )
+        printed_board += '{:>28}{:>15}{:>15}{:>20}\n\n'.format(
+            str(values[16]),
+            str(values[17]),
+            str(values[18]),
+            PORTS_NAMES[self.ports[6]]
+        )
+        printed_board += '{:>20}{:>48}\n'.format(
+            PORTS_NAMES[self.ports[7]],
+            PORTS_NAMES[self.ports[8]]
+        )
+
+        return printed_board
 
     def start_settelment_first(self, player_nr, settle_position, road_position):
         """changes CatanBoard()/self if possible according to the rules of
@@ -117,8 +187,10 @@ class CatanBoard:
         """
         ################################ Insert/Modify CODE HERE ##################################
 
-    def start_settelment_second(self, player_nr, settle_position, road_position):
+        self.settlements[settle_position] = player_nr
+        self.roads[road_position] = player_nr
 
+    def start_settelment_second(self, player_nr, settle_position, road_position):
         """changes CatanBoard()/self if possible according to the rules of
          building the first starting settelment with an road
         ################################ Insert/Modify Comments HERE ##################################

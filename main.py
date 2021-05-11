@@ -30,16 +30,19 @@ if __name__ == '__main__':
     for player_nr in range(4):
         current_player = players[player_nr]
         board_safety_copy = copy.deepcopy(board)
-        settle_position, road_position = current_player.start_settelment_first(board_safety_copy)
-        board.start_settelment_first(player_nr,settle_position,road_position)
-
+        print(board)
+        settle_position, road_position = current_player.start_settelment_first(
+            board_safety_copy)
+        board.start_settelment_first(player_nr, settle_position, road_position)
 
     # second settelment with road
     for player_nr in range(3, 0, -1):
         current_player = players[player_nr]
         board_safety_copy = copy.deepcopy(board)
-        settle_position, road_position = current_player.start_settelment_second(board_safety_copy)
-        board.start_settelment_second(player_nr,settle_position,road_position)
+        settle_position, road_position = current_player.start_settelment_second(
+            board_safety_copy)
+        board.start_settelment_second(
+            player_nr, settle_position, road_position)
 
     # game will be played for maximum MAXIMUM_ROUNDS
     for game_round in range(MAXIMUM_ROUNDS):
@@ -49,7 +52,8 @@ if __name__ == '__main__':
         for player_nr in range(4):
             current_player = players[player_nr]
             # print statements for debugging
-            print('It is turn of player number:{0}'.format(current_player.player_nr))
+            print('It is turn of player number:{0}'.format(
+                current_player.player_nr))
             choice = 42  # random positive number for initialisation
             while choice > 0:
                 # making safety working copy of board (can be changed in later
@@ -68,7 +72,8 @@ if __name__ == '__main__':
                             resources = p.discard_half(board_safety_copy)
                             board.discard_half(p_nr, resources)
                         # steal resource after everybody discarded cards
-                        position, target_player_nr = current_player.steal_card(board_safety_copy)
+                        position, target_player_nr = current_player.steal_card(
+                            board_safety_copy)
                         board.steal_card(player_nr, position, target_player_nr)
                 if choice == 3:
                     position = current_player.set_settlement(board_safety_copy)
@@ -82,22 +87,27 @@ if __name__ == '__main__':
                 if choice == 6:
                     board.buy_dev_card(player_nr)
                 if choice == 8:
-                    position, target_player_nr = current_player.steal_card(board_safety_copy)
+                    position, target_player_nr = current_player.steal_card(
+                        board_safety_copy)
                     board.play_knight(player_nr, position, target_player_nr)
                 if choice == 9:
-                    position1, position2 = current_player.play_roads(board_safety_copy)
+                    position1, position2 = current_player.play_roads(
+                        board_safety_copy)
                     board.play_roads(player_nr, position1, position2)
                 if choice == 10:
-                    resource1, resource2 = current_player.play_plenty(board_safety_copy)
+                    resource1, resource2 = current_player.play_plenty(
+                        board_safety_copy)
                     board.play_plenty(player_nr, resource1, resource2)
                 if choice == 11:
                     resource = current_player.play_mono(board_safety_copy)
                     board.play_mono(player_nr, resource)
                 if choice == 12:
-                    resource_own, resource_bank = current_player.trade_bank(board_safety_copy)
+                    resource_own, resource_bank = current_player.trade_bank(
+                        board_safety_copy)
                     board.trade_bank(player_nr, resource_own, resource_bank)
                 if choice == 13:
-                    resources_own, target_player_nr, resources_target = current_player.trade_offer(board_safety_copy)
+                    resources_own, target_player_nr, resources_target = current_player.trade_offer(
+                        board_safety_copy)
                     answer_target = players[target_player_nr].trade_answer(board_safety_copy, resources_own,
                                                                            resources_target)
                     board.trade_offer(player_nr, resources_own, target_player_nr, resources_target,
