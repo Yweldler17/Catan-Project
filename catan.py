@@ -276,7 +276,7 @@ class CatanBoard:
         roll_number = 7
         return 7
 
-    def discard_half(self, player_nr, resourses):
+    def discard_half(self, player_nr, resources):
         """changes CatanBoard()/self if possible according to the rules of discarding cards if 7 rolled
 
         ################################ Insert/Modify Comments HERE ##################################
