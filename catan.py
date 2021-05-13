@@ -338,6 +338,9 @@ class CatanBoard:
         """
         ################################ Insert/Modify CODE HERE ##################################
 
+        self.roads[position1] = player_number
+        self.roads[position2] = player_number
+
     def play_plenty(self, player_number, resource1, resource2):
         """changes CatanBoard()/self if possible according to the rules of playing the years of plenty dev card :
 
