@@ -14,7 +14,7 @@ class CatanPlayer:
         generate buy_settlement input:
         output -- position -- integer 0-54 """
         ################################ Insert/Modify CODE HERE ##################################
-        position = int(input('insert argument'))
+        position = int(input('Insert settlement you wish to buy. 0-54'))
         return position
 
     def set_city(self, board):
