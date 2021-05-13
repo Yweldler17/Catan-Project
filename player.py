@@ -169,7 +169,7 @@ class CatanPlayer:
         ################################ Insert/Modify CODE HERE ##################################
 
         settle_position, road_position = int(
-            input('insert argument')), int(input('insert argument'))
+            input('Place your Settlement')), int(input('Place your Road'))
         return settle_position, road_position
 
     def start_settelment_first(self, board):
@@ -192,6 +192,6 @@ if __name__ == '__main__':
     """
 
     ################################ Insert/Modify CODE HERE ##################################
-    p = CatanPlayer(0)
-    print(p.player_number)
+    player = CatanPlayer(0)
+    print(player.player_number)
     print('Debug complete')
