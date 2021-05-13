@@ -75,10 +75,10 @@ class CatanBoard:
         # played open knight cards for each player
         self.open_knights = [0, 0, 0, 0]
         # hidden unplayed dev cards for each player
-        # as 2d materix  dev_dict x  player_nr
+        # as 2d materix  dev_dict x  player_number
         self.hidden_dev_cards = np.array([[0]*5]*4)
         # how many dev cards were just bought this turn and can not be played
-        # as 2d matrix dev_dict x  player_nr
+        # as 2d matrix dev_dict x  player_number
         self.new_hidden_dev_card = np.array([[0]*5]*4)
 
     # String output for printing the board
@@ -174,33 +174,36 @@ class CatanBoard:
 
         return printed_board
 
-    def start_settelment_first(self, player_nr, settle_position, road_position):
+    def start_settelment_first(self, player_number, settle_position, road_position):
         """changes CatanBoard()/self if possible according to the rules of
         building the first starting settelment with an road
 
         ################################ Insert/Modify Comments HERE ##################################
         buy_settlement arguments:
         self -- CatanBoard()
-        player_nr -- integer 0-3
+        player_number -- integer 0-3
         settle_position -- integer 0-54
         road_position -- integer 0-71
         """
         ################################ Insert/Modify CODE HERE ##################################
 
-        self.settlements[settle_position] = player_nr
-        self.roads[road_position] = player_nr
+        self.settlements[settle_position] = player_number
+        self.roads[road_position] = player_number
 
-    def start_settelment_second(self, player_nr, settle_position, road_position):
+    def start_settelment_second(self, player_number, settle_position, road_position):
         """changes CatanBoard()/self if possible according to the rules of
          building the first starting settelment with an road
         ################################ Insert/Modify Comments HERE ##################################
         buy_settlement arguments:
         self -- CatanBoard()
-        player_nr -- integer 0-3
+        player_number -- integer 0-3
         settle_position -- integer 0-54
         road_position -- integer 0-71
         """
         ################################ Insert/Modify CODE HERE ##################################
+
+        self.settlements[settle_position] = player_number
+        self.roads[road_position] = player_number
 
     def check_points(self):
         """checks if somebody won the game (reached 10 points) and returns the winner or one of the point leaders
@@ -213,59 +216,62 @@ class CatanBoard:
         """
         ################################ Insert/Modify CODE HERE #################################
         game_end, winner = False, 0
+        for index, player_points in enumerate(self.player_points):
+            if player_points == 10:
+                game_end, winner = True, index
         return game_end, winner
 
-    def buy_settlement(self, player_nr, position):
+    def buy_settlement(self, player_number, position):
         """changes CatanBoard()/self if possible according to the rules of building a settelment:
 
         ################################ Insert/Modify Comments HERE ##################################
 
         buy_settlement arguments:
         self -- CatanBoard()
-        player_nr -- integer 0-3
+        player_number -- integer 0-3
         position -- integer 0-53
 
         """
         ################################ Insert/Modify CODE HERE ##################################
 
-    def buy_city(self, player_nr, position):
+    def buy_city(self, player_number, position):
         """changes CatanBoard()/self if possible according to the rules of building a city:
 
         ################################ Insert/Modify Comments HERE ##################################
 
         buy_city arguments:
         self -- CatanBoard()
-        player_nr -- integer 0-3
+        player_number -- integer 0-3
         position -- integer 0-53
         """
         ################################ Insert/Modify CODE HERE ##################################
 
-    def buy_road(self, player_nr, position):
+    def buy_road(self, player_number, position):
         """changes CatanBoard()/self if possible according to the rules of building a road:
 
         ################################ Insert/Modify Comments HERE ##################################
 
         buy_road arguments:
         self -- CatanBoard()
-        player_nr -- integer 0-3
+        player_number -- integer 0-3
         position -- integer 0-71
 
         """
         ################################ Insert/Modify CODE HERE ##################################
 
-    def buy_dev_card(self, player_nr):
+    def buy_dev_card(self, player_number):
         """changes CatanBoard()/self if possible according to the rules of buying a development card card:
 
         ################################ Insert/Modify Comments HERE ##################################
 
         buy_dev_card input arguments:
         self -- CatanBoard()
-        player_nr -- integer 0-3
+        player_number -- integer 0-3
 
         """
         ################################ Insert/Modify CODE HERE ##################################
 
-    def roll_dice(self, player_nr):
+    def roll_dice(self, player_number):
         """changes CatanBoard()/self if possible according to the rules of rolling dice in catan:
 
         ################################ Insert/Modify Comments HERE ##################################
@@ -276,13 +282,13 @@ class CatanBoard:
         roll_number = 7
         return 7
 
-    def discard_half(self, player_nr, resources):
+    def discard_half(self, player_number, resources):
         """changes CatanBoard()/self if possible according to the rules of discarding cards if 7 rolled
 
         ################################ Insert/Modify Comments HERE ##################################
         discard_half input arguments:
         self -- CatanBoard()
-        player_nr -- integer 0-3
+        player_number -- integer 0-3
         resourses -- np.array([brick, ore, hay, wood, sheep])
                 brick -- integer 0-19
                 ore -- integer 0-19
@@ -293,82 +299,82 @@ class CatanBoard:
         """
         ################################ Insert/Modify CODE HERE ##################################
 
-    def steal_card(self, player_nr, position, target_player_nr):
+    def steal_card(self, player_number, position, target_player_number):
         """changes CatanBoard()/self if possible according to the rules of discarding cards if 7 rolled
 
         ################################ Insert/Modify Comments HERE ##################################
         steal_card input arguments:
         self -- CatanBoard()
-        player_nr -- integer 0-3
+        player_number -- integer 0-3
         position -- integer 0 - self.number_of_tiles-1
-        target_player_nr -- integer 0-3
+        target_player_number -- integer 0-3
         """
         ################################ Insert/Modify CODE HERE ##################################
 
-    def play_knight(self, player_nr, position, target_player_nr):
+    def play_knight(self, player_number, position, target_player_number):
         """changes CatanBoard()/self if possible according to the rules knight playing in catan:
 
         ################################ Insert/Modify Comments HERE ##################################
         self -- CatanBoard()
-        player_nr -- integer 0-3
+        player_number -- integer 0-3
         position -- integer 0 - self.number_of_tiles-1
-        target_player_nr -- integer 0-3
+        target_player_number -- integer 0-3
 
         """
         ################################ Insert/Modify CODE HERE ##################################
 
-    def play_roads(self, player_nr, position1, position2):
+    def play_roads(self, player_number, position1, position2):
         """changes CatanBoard()/self if possible according to the rules of playing the roadsbuilding dev card :
 
         ################################ Insert/Modify Comments HERE ##################################
         self -- CatanBoard()
-        player_nr -- integer 0-3
+        player_number -- integer 0-3
         position1 -- integer 0-71
         position2 -- integer 0-71
         """
         ################################ Insert/Modify CODE HERE ##################################
 
-    def play_plenty(self, player_nr, resource1, resource2):
+    def play_plenty(self, player_number, resource1, resource2):
         """changes CatanBoard()/self if possible according to the rules of playing the years of plenty dev card :
 
         ################################ Insert/Modify Comments HERE ##################################
         self -- CatanBoard()
-        player_nr -- integer 0-3
+        player_number -- integer 0-3
         resource1 -- integer 1-5
         resource1 -- integer 1-5
         """
         ################################ Insert/Modify CODE HERE ##################################
 
-    def play_mono(self, player_nr, resource):
+    def play_mono(self, player_number, resource):
         """changes CatanBoard()/self if possible according to the rules of playing monopoly dev card :
 
         ################################ Insert/Modify Comments HERE ##################################
         self -- CatanBoard()
-        player_nr -- integer 0-3
+        player_number -- integer 0-3
         resource -- integer 1-5
 
         """
         ################################ Insert/Modify CODE HERE ##################################
 
-    def trade_bank(self, player_nr, resource_own, resource_bank):
+    def trade_bank(self, player_number, resource_own, resource_bank):
         """changes CatanBoard()/self if possible according to the rules bank trading including ports:
 
         ################################ Insert/Modify Comments HERE ##################################
         self -- CatanBoard()
-        player_nr -- integer 0-3
+        player_number -- integer 0-3
         resource_own -- integer 1-5
         resource_bank -- integer 1-5
         """
         ################################ Insert/Modify CODE HERE ##################################
 
-    def trade_offer(self, player_nr, resources_own, target_player_nr, resources_target, answer_target=False):
+    def trade_offer(self, player_number, resources_own, target_player_number, resources_target, answer_target=False):
         """changes CatanBoard()/self if possible according to the rules bank trading including ports:
 
         ################################ Insert/Modify Comments HERE ##################################
         self -- CatanBoard()
-        player_nr -- integer 0-3
+        player_number -- integer 0-3
         resources_own -- np.array([brick, ore, hay, wood, sheep])
-        target_player_nr -- integer 0-3
+        target_player_number -- integer 0-3
         resources_target -- np.array([brick, ore, hay, wood, sheep])
                 brick -- integer 0-19
                 ore -- integer 0-19

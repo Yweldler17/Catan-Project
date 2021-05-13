@@ -22,6 +22,8 @@ if __name__ == '__main__':
 
     # insert players
     players = list()
+
+    # Create players
     for player_number in range(4):
         players.append(player.CatanPlayer(player_number))
 
@@ -31,8 +33,12 @@ if __name__ == '__main__':
         current_player = players[player_number]
         board_safety_copy = copy.deepcopy(board)
         print(board)
+
+        # Player chooses first settlement and road
         settle_position, road_position = current_player.start_settelment_first(
             board_safety_copy)
+
+        # Place chosen settlement and road on board
         board.start_settelment_first(player_number, settle_position, road_position)
 
     # second settelment with road
@@ -53,7 +59,7 @@ if __name__ == '__main__':
             current_player = players[player_number]
             # print statements for debugging
             print('It is turn of player number:{0}'.format(
-                current_player.player_nr))
+                current_player.player_number))
             choice = 42  # random positive number for initialisation
             while choice > 0:
                 # making safety working copy of board (can be changed in later
@@ -72,9 +78,9 @@ if __name__ == '__main__':
                             resources = p.discard_half(board_safety_copy)
                             board.discard_half(p_nr, resources)
                         # steal resource after everybody discarded cards
-                        position, target_player_nr = current_player.steal_card(
+                        position, target_player_number = current_player.steal_card(
                             board_safety_copy)
-                        board.steal_card(player_number, position, target_player_nr)
+                        board.steal_card(player_number, position, target_player_number)
                 if choice == 3:
                     position = current_player.set_settlement(board_safety_copy)
                     board.buy_settlement(player_number, position)
@@ -87,9 +93,9 @@ if __name__ == '__main__':
                 if choice == 6:
                     board.buy_dev_card(player_number)
                 if choice == 8:
-                    position, target_player_nr = current_player.steal_card(
+                    position, target_player_number = current_player.steal_card(
                         board_safety_copy)
-                    board.play_knight(player_number, position, target_player_nr)
+                    board.play_knight(player_number, position, target_player_number)
                 if choice == 9:
                     position1, position2 = current_player.play_roads(
                         board_safety_copy)
@@ -106,16 +112,16 @@ if __name__ == '__main__':
                         board_safety_copy)
                     board.trade_bank(player_number, resource_own, resource_bank)
                 if choice == 13:
-                    resources_own, target_player_nr, resources_target = current_player.trade_offer(
+                    resources_own, target_player_number, resources_target = current_player.trade_offer(
                         board_safety_copy)
-                    answer_target = players[target_player_nr].trade_answer(board_safety_copy, resources_own,
+                    answer_target = players[target_player_number].trade_answer(board_safety_copy, resources_own,
                                                                            resources_target)
-                    board.trade_offer(player_number, resources_own, target_player_nr, resources_target,
+                    board.trade_offer(player_number, resources_own, target_player_number, resources_target,
                                       answer_target)
 
             game_end, winner = board.check_points()
             if game_end:
-                print("player {0} won".format(winner))
+                print("player {0} won".format(players[winner]))
                 break
     print('game ended')
 

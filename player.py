@@ -4,8 +4,8 @@ import numpy as np
 class CatanPlayer:
     # Initialize the Catan Board with all the options for resources, numbers to be rolled,
     # settlements/roads, port options
-    def __init__(self, player_nr):
-        self.player_nr = player_nr
+    def __init__(self, player_number):
+        self.player_number = player_number
 
     def set_settlement(self, board):
         """
@@ -74,13 +74,13 @@ class CatanPlayer:
         ################################ Insert/Modify Comments HERE ##################################
         output
         position -- integer 0 - self.number_of_tiles-1
-        target_player_nr -- integer 0-3
+        target_player_number -- integer 0-3
 
         """
         ################################ Insert/Modify CODE HERE ##################################
-        position, target_player_nr = int(
+        position, target_player_number = int(
             input('insert argument')), int(input('insert argument'))
-        return position, target_player_nr
+        return position, target_player_number
 
     def play_roads(self, board):
         """
@@ -134,7 +134,7 @@ class CatanPlayer:
         """
         ################################ Insert/Modify Comments HERE ##################################
         resources_own -- np.array([brick, ore, hay, wood, sheep])
-        target_player_nr -- integer 0-3
+        target_player_number -- integer 0-3
         resources_target -- np.array([brick, ore, hay, wood, sheep])
                 brick -- integer 0-19
                 ore -- integer 0-19
@@ -143,11 +143,11 @@ class CatanPlayer:
                 sheep --integer 0-19
         """
         ################################ Insert/Modify CODE HERE ##################################
-        resources_own, target_player_nr, resources_target = input(
+        resources_own, target_player_number, resources_target = input(
             'insert argument'),
         input('insert argument'), input('insert argument')
 
-        return resources_own, target_player_nr, resources_target
+        return resources_own, target_player_number, resources_target
 
     def trade_answer(self, board, resources_offered, resources_asked):
         """
@@ -193,5 +193,5 @@ if __name__ == '__main__':
 
     ################################ Insert/Modify CODE HERE ##################################
     p = CatanPlayer(0)
-    print(p.player_nr)
+    print(p.player_number)
     print('Debug complete')
