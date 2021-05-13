@@ -1,6 +1,6 @@
 import numpy as np
 
-# List of resources available to be distributed on the board
+# List of resources available to be distributed on the boa
 RESOURCE_NAMES = ["desert", "brick", "ore", "hay", "wood", "sheep"]
 # Create a dictionary of each resource and a corresponding number id
 res_dict = dict(zip(RESOURCE_NAMES, np.arange(0, len(RESOURCE_NAMES))))
