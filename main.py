@@ -39,7 +39,8 @@ if __name__ == '__main__':
             board_safety_copy)
 
         # Place chosen settlement and road on board
-        board.start_settelment_first(player_number, settle_position, road_position)
+        board.start_settelment_first(
+            player_number, settle_position, road_position)
 
     # second settelment with road
     for player_number in range(3, 0, -1):
@@ -69,6 +70,7 @@ if __name__ == '__main__':
                 choice = current_player.turn_choice(board_safety_copy)
                 # print statements for debugging
                 print(choice)
+                # choices below are moves available to a player
                 if choice == 2:
                     # roll dice
                     ok, dice_number = board.roll_dice(player_number)
@@ -80,13 +82,17 @@ if __name__ == '__main__':
                         # steal resource after everybody discarded cards
                         position, target_player_number = current_player.steal_card(
                             board_safety_copy)
-                        board.steal_card(player_number, position, target_player_number)
+                        board.steal_card(
+                            player_number, position, target_player_number)
+                # choice 3 is to buy a settlement
                 if choice == 3:
                     position = current_player.set_settlement(board_safety_copy)
                     board.buy_settlement(player_number, position)
+                # choice 4 is to buy a city
                 if choice == 4:
                     position = current_player.set_city(board_safety_copy)
                     board.buy_city(player_number, position)
+                # choice 4 is to buy a road
                 if choice == 5:
                     position = current_player.set_road(board_safety_copy)
                     board.buy_road(player_number, position)
@@ -95,7 +101,8 @@ if __name__ == '__main__':
                 if choice == 8:
                     position, target_player_number = current_player.steal_card(
                         board_safety_copy)
-                    board.play_knight(player_number, position, target_player_number)
+                    board.play_knight(player_number, position,
+                                      target_player_number)
                 if choice == 9:
                     position1, position2 = current_player.play_roads(
                         board_safety_copy)
@@ -110,12 +117,13 @@ if __name__ == '__main__':
                 if choice == 12:
                     resource_own, resource_bank = current_player.trade_bank(
                         board_safety_copy)
-                    board.trade_bank(player_number, resource_own, resource_bank)
+                    board.trade_bank(
+                        player_number, resource_own, resource_bank)
                 if choice == 13:
                     resources_own, target_player_number, resources_target = current_player.trade_offer(
                         board_safety_copy)
                     answer_target = players[target_player_number].trade_answer(board_safety_copy, resources_own,
-                                                                           resources_target)
+                                                                               resources_target)
                     board.trade_offer(player_number, resources_own, target_player_number, resources_target,
                                       answer_target)
 

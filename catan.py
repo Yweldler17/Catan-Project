@@ -1,4 +1,5 @@
 import numpy as np
+import random
 
 # List of resources available to be distributed on the board
 RESOURCE_NAMES = ["desert", "brick", "ore", "hay", "wood", "sheep"]
@@ -276,11 +277,14 @@ class CatanBoard:
 
         ################################ Insert/Modify Comments HERE ##################################
 
+        # two die rolls to ensure the spins will be with the correct probability   
+
         """
         # output roll_numer of dice
         ################################ Insert/Modify CODE HERE ##################################
-        roll_number = 7
-        return 7
+        roll_die_one = random.randint(1, 6)
+        roll_die_two = random.randint(1, 6)
+        return (roll_die_one + roll_die_two)
 
     def discard_half(self, player_number, resources):
         """changes CatanBoard()/self if possible according to the rules of discarding cards if 7 rolled
