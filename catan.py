@@ -104,6 +104,8 @@ class CatanBoard:
         # as 2d matrix dev_dict x  player_number
         self.new_hidden_dev_card = np.array([[0]*5]*4)
 
+        # array of coordinates for each of the 19 game tiles.
+        # each tile has six corners for settlement/city placement.
         self.coordinates = [
             [0, 1, 2, 3, 4, 5],
             [2, 6, 7, 8, 9, 3],
@@ -130,8 +132,11 @@ class CatanBoard:
             [44, 43, 46, 52, 53, 50],
         ]
 
+        # adds all 19 tiles along with the properties
+        # resource, roll number, coordinates
         self.board_layout = []
         for index in range(len(self.board_resources)):
+            # creates coordinate objects for each of the tiles 6 coordinates.
             current_coordinates = []
             for spot in range(6):
                 current_coordinates.append(coordinate.Intersection(
@@ -254,6 +259,14 @@ class CatanBoard:
         ################################ Insert/Modify CODE HERE ##################################
 
         self.settlements[settle_position] = player_number
+
+        for tile in self.board_layout:
+            for coordinate in tile.coordinates:
+                # marks the coordinate as taken.
+                ###############  inset code to mark off the 2 coordinates before and after the selected ################
+                if settle_position == coordinate.intersection_index:
+                    coordinate.status = "Unavailable"
+
         self.roads[road_position] = player_number
 
     def start_settelment_second(self, player_number, settle_position, road_position):
