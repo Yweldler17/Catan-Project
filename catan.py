@@ -55,14 +55,34 @@ class CatanBoard:
         self.roads = np.array([0] * (12 * 5 + 6 + 6))
 
         # Zero_tile_nr will represent where the 0 number exists
-        zero_tile_nr = np.where(self.roll_numbers == 0)
+        #zero_tile_nr = np.where(self.roll_numbers == 0)
         # Desert_tile_nr will represent where the desert resource exists
-        desert_tile_nr = np.where(self.board_resources == res_dict["desert"])
+        #desert_tile_nr = np.where(self.board_resources == res_dict["desert"])
         # Robber will keep track of where the robber is and it starts in the desert
-        self.robber = desert_tile_nr
+        #self.robber = desert_tile_nr
         # as the desert tile and replace whatever was already in the desert tile into the empty zero tile
-        self.roll_numbers[zero_tile_nr], self.roll_numbers[desert_tile_nr] = (self.roll_numbers[desert_tile_nr],
-                                                                              self.roll_numbers[zero_tile_nr])
+        #self.roll_numbers[zero_tile_nr], self.roll_numbers[desert_tile_nr] = (self.roll_numbers[desert_tile_nr],self.roll_numbers[zero_tile_nr])
+        
+        #positioning the 6's & 8's to be apart 
+        a = self.roll_numbers         
+        for i in range(19):           
+            if a[i] == 6 and i != 0:
+                if a[0] != 6:                  
+                    a[0],a[i] = a[i],a[0]                  
+                else:
+                    a[6],a[i] = a[i],a[6]                   
+            if a[i] == 8 and i != 7:
+                if a[7] != 8:
+                    a[7],a[i] = a[i],a[7]
+                else:
+                    a[15],a[i]=a[i],a[15]   
+        zero_tile_nr = np.where(self.roll_numbers == 0)
+        desert_tile_nr = np.where(self.board_resources == res_dict["desert"])
+        self.robber = desert_tile_nr                 
+        self.board_resources[zero_tile_nr], self.board_resources[desert_tile_nr] = self.board_resources[desert_tile_nr], \
+                                                                                         self.board_resources[zero_tile_nr] 
+
+        
         # bank resources  "brick", "ore", "hay", "wood", "sheep"
         self.bank = np.array([19, 19, 19, 19])
         # player_points player0, player1, player2, player3
