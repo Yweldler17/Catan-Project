@@ -1,5 +1,6 @@
 import numpy as np
 import random
+import catan_tile
 
 # List of resources available to be distributed on the board
 RESOURCE_NAMES = ["desert", "brick", "ore", "hay", "wood", "sheep"]
@@ -35,6 +36,7 @@ class CatanBoard:
         # Shuffle the resource array for randomized distribution
         np.random.shuffle(self.board_resources)
         # number associated with the desert and 0 can not actually be rolled
+        print(self.board_resources)
         self.roll_numbers = np.array(
             [0, 2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12])
         # shuffle number options
@@ -81,6 +83,12 @@ class CatanBoard:
         # how many dev cards were just bought this turn and can not be played
         # as 2d matrix dev_dict x  player_number
         self.new_hidden_dev_card = np.array([[0]*5]*4)
+
+        self.board_layout = []
+        for index in range(len(self.board_resources)):
+            self.board_layout.append(catan_tile.CatanTile(
+                index, self.board_resources[index], self.roll_numbers[index]))
+            print(self.board_layout[index])
 
     # String output for printing the board
 
