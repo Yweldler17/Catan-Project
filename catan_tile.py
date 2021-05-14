@@ -2,17 +2,12 @@ import catan
 
 
 class CatanTile:
-    # Initialize the Catan Board with all the options for resources, numbers to be rolled,
-    # settlements/roads, port options
-    def __init__(self, index, resource, value):
+    def __init__(self, index, resource, value, coordinates):
         self.index = index
         self.resource = resource
         self.value = value
-        self.coordinates = []
-        self.road_slots = []
-
-    def set_coordinates(self, coordinates):
         self.coordinates = coordinates
+        self.road_slots = []
 
     def set_road_slots(self, road_slots):
         self.road_slots = road_slots
@@ -28,5 +23,13 @@ class CatanTile:
         return_val += 'Value: {}\n'.format(
             self.value
         )
+        coordinate_str = ''
+        for i in range(len(self.coordinates)):
+            coordinate_str += 'Coordinate {}: {}\n'.format(
+                i,
+                self.coordinates[i]
+            )
+
+        return_val += coordinate_str
 
         return return_val

@@ -1,6 +1,7 @@
 import numpy as np
 import random
 import catan_tile
+import coordinate
 
 # List of resources available to be distributed on the board
 RESOURCE_NAMES = ["desert", "brick", "ore", "hay", "wood", "sheep"]
@@ -62,27 +63,26 @@ class CatanBoard:
         #self.robber = desert_tile_nr
         # as the desert tile and replace whatever was already in the desert tile into the empty zero tile
         #self.roll_numbers[zero_tile_nr], self.roll_numbers[desert_tile_nr] = (self.roll_numbers[desert_tile_nr],self.roll_numbers[zero_tile_nr])
-        
-        #positioning the 6's & 8's to be apart 
-        a = self.roll_numbers         
-        for i in range(19):           
+
+        # positioning the 6's & 8's to be apart
+        a = self.roll_numbers
+        for i in range(19):
             if a[i] == 6 and i != 0:
-                if a[0] != 6:                  
-                    a[0],a[i] = a[i],a[0]                  
+                if a[0] != 6:
+                    a[0], a[i] = a[i], a[0]
                 else:
-                    a[6],a[i] = a[i],a[6]                   
+                    a[6], a[i] = a[i], a[6]
             if a[i] == 8 and i != 7:
                 if a[7] != 8:
-                    a[7],a[i] = a[i],a[7]
+                    a[7], a[i] = a[i], a[7]
                 else:
-                    a[15],a[i]=a[i],a[15]   
+                    a[15], a[i] = a[i], a[15]
         zero_tile_nr = np.where(self.roll_numbers == 0)
         desert_tile_nr = np.where(self.board_resources == res_dict["desert"])
-        self.robber = desert_tile_nr                 
+        self.robber = desert_tile_nr
         self.board_resources[zero_tile_nr], self.board_resources[desert_tile_nr] = self.board_resources[desert_tile_nr], \
-                                                                                         self.board_resources[zero_tile_nr] 
+            self.board_resources[zero_tile_nr]
 
-        
         # bank resources  "brick", "ore", "hay", "wood", "sheep"
         self.bank = np.array([19, 19, 19, 19])
         # player_points player0, player1, player2, player3
@@ -104,10 +104,47 @@ class CatanBoard:
         # as 2d matrix dev_dict x  player_number
         self.new_hidden_dev_card = np.array([[0]*5]*4)
 
+        self.coordinates = [
+            [0, 1, 2, 3, 4, 5],
+            [2, 6, 7, 8, 9, 3],
+            [7, 10, 11, 12, 13, 8],
+
+            [14, 5, 4, 15, 16, 17],
+            [4, 3, 9, 18, 19, 15],
+            [9, 8, 13, 20, 21, 18],
+            [13, 12, 22, 23, 24, 20],
+
+            [25, 17, 16, 26, 27, 28],
+            [16, 15, 19, 29, 30, 26],
+            [19, 18, 21, 31, 32, 29],
+            [21, 20, 24, 33, 34, 31],
+            [24, 23, 35, 36, 37, 33],
+
+            [27, 26, 30, 38, 39, 40],
+            [30, 29, 32, 41, 42, 38],
+            [32, 31, 34, 43, 44, 41],
+            [34, 33, 37, 45, 46, 43],
+
+            [39, 38, 42, 47, 48, 49],
+            [42, 41, 44, 50, 51, 47],
+            [44, 43, 46, 52, 53, 50],
+        ]
+
         self.board_layout = []
         for index in range(len(self.board_resources)):
+            current_coordinates = []
+            for spot in range(6):
+                current_coordinates.append(coordinate.Intersection(
+                    self.coordinates[index][spot],
+                    "Open"
+                ))
+
             self.board_layout.append(catan_tile.CatanTile(
-                index, self.board_resources[index], self.roll_numbers[index]))
+                index,
+                self.board_resources[index],
+                self.roll_numbers[index],
+                current_coordinates
+            ))
             print(self.board_layout[index])
 
     # String output for printing the board
