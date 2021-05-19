@@ -72,6 +72,7 @@ class CatanBoard:
                     a[0], a[i] = a[i], a[0]
                 else:
                     a[6], a[i] = a[i], a[6]
+        for i in range(19):
             if a[i] == 8 and i != 7:
                 if a[7] != 8:
                     a[7], a[i] = a[i], a[7]
