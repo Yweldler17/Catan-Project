@@ -297,7 +297,7 @@ class CatanBoard:
         ################################ Insert/Modify CODE HERE #################################
         game_end, winner = False, 0
         for index, player_points in enumerate(self.player_points):
-            if player_points == 10:
+            if player_points >= 10:
                 game_end, winner = True, index
         return game_end, winner
 
