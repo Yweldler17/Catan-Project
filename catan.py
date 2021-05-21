@@ -1,6 +1,7 @@
 import numpy as np
 import random
 import catan_tile
+import catan_road
 import coordinate
 
 # List of resources available to be distributed on the board
@@ -105,6 +106,8 @@ class CatanBoard:
         # as 2d matrix dev_dict x  player_number
         self.new_hidden_dev_card = np.array([[0]*5]*4)
 
+        # road_list is an array for all road object positions
+        self.road_list = []
         # array of coordinates for each of the 19 game tiles.
         # each tile has six corners for settlement/city placement.
         self.coordinates = [
@@ -135,21 +138,60 @@ class CatanBoard:
 
         # adds all 19 tiles along with the properties
         # resource, roll number, coordinates
+        # creates coordinates array
+        self.coordinate_list = []
+        for index in range(len(self.settlements)):
+            self.coordinate_list.append(coordinate.Intersection(
+                index,
+                "Open"
+            ))
+
+        # Generates full list of road coordiantes for all 19 board tiles
+        # creates a full list of road combination possibilities
+        # sorts the combos always starting from smaller to larger
+        self.roads_by_tiles = []
+        full_combo_list = []
+        self.coordinate_combos = []
+        for i in range(len(self.coordinates)):
+            tile_list = []
+            for j in range(len(self.coordinates[i])):
+                current_coordinates = []
+                if j == 5:
+                    current_coordinates = [
+                        self.coordinates[i][j], self.coordinates[i][0]]
+                else:
+                    current_coordinates = [
+                        self.coordinates[i][j], self.coordinates[i][j+1]]
+
+                current_coordinates.sort()
+                full_combo_list.append(current_coordinates)
+                tile_list.append(current_coordinates)
+            self.roads_by_tiles.append(tile_list)
+
+        # adding only unique values to coordinate_combo list
+        for i in full_combo_list:
+            if i not in self.coordinate_combos:
+                self.coordinate_combos.append(i)
+        # generating and appending road objects to the road_list
+        # using only sorted unique combo pairs.
+        for index in range(len(self.roads)):
+            self.road_list.append(catan_road.Road(
+                index,
+                self.coordinate_combos[index][0],
+                self.coordinate_combos[index][1]
+            ))
+
+        print(len(self.roads_by_tiles))
+        # adds all board tiles with coordinates.
         self.board_layout = []
         for index in range(len(self.board_resources)):
             # creates coordinate objects for each of the tiles 6 coordinates.
-            current_coordinates = []
-            for spot in range(6):
-                current_coordinates.append(coordinate.Intersection(
-                    self.coordinates[index][spot],
-                    "Open"
-                ))
-
             self.board_layout.append(catan_tile.CatanTile(
                 index,
                 self.board_resources[index],
                 self.roll_numbers[index],
-                current_coordinates
+                self.coordinates[index],
+                self.roads_by_tiles[index]
             ))
             print(self.board_layout[index])
 
