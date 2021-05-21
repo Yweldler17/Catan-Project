@@ -19,10 +19,10 @@ class Road:
             self.index
         )
         coordinate_str = ''
-        for i in range(len(self.coordinates)):
+        for key in self.coordinates:
             coordinate_str += 'Coordinate {}: {}\n'.format(
-                i,
-                self.coordinates[i]
+                key,
+                self.coordinates[key]
             )
         return_val += coordinate_str
         return_val += 'Status: {}'.format(

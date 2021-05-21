@@ -303,14 +303,12 @@ class CatanBoard:
 
         self.settlements[settle_position] = player_number
 
-        for tile in self.board_layout:
-            for coordinate in tile.coordinates:
-                # marks the coordinate as taken.
-                ###############  inset code to mark off the 2 coordinates before and after the selected ################
-                if settle_position == coordinate.intersection_index:
-                    coordinate.status = "Unavailable"
+        # marks the coordinate as taken.
+        ###############  insert code to mark off the 2 coordinates before and after the selected ################
 
+        self.coordinate_list[settle_position].status = "Unavailable"
         self.roads[road_position] = player_number
+        self.road_list[road_position].status = "Unavailable"
 
     def start_settelment_second(self, player_number, settle_position, road_position):
         """changes CatanBoard()/self if possible according to the rules of
