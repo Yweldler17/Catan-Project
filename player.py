@@ -1,11 +1,15 @@
 import numpy as np
 
-
+RESOURCE_NAMES = [ "brick", "ore", "hay", "wood", "sheep"]
 class CatanPlayer:
     # Initialize the Catan Board with all the options for resources, numbers to be rolled,
     # settlements/roads, port options
     def __init__(self, player_number):
         self.player_number = player_number
+        self.player_hand = {}
+        for i in RESOURCE_NAMES:
+            self.player_hand[i] = []
+            
 
     def set_settlement(self, board):
         """
