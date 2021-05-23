@@ -421,20 +421,21 @@ class CatanBoard:
 
         """
         ################################ Insert/Modify CODE HERE ##################################
+        RESOURCE_NAMES2 = [ "brick", "ore", "hay", "wood", "sheep"]
         a = player.CatanPlayer(player_nr)
         b = a.player_hand
         s = 0 #checking for min of 8 cards
-        for i in RESOURCE_NAMES:
+        for i in RESOURCE_NAMES2:
             s += len(b[i])
         if s >= 8:
             print('You have to return ',s//2,' cards.')
             print('You have the following cards:')
-            for i in RESOURCE_NAMES:
+            for i in RESOURCE_NAMES2:
                 print(len(b[i]),' ',i,'\n')
             z = 0 # accumulator to count up to half the cards
             while z < s//2:
                 choice = input("enter the card you want to return: ")
-                while not choice in RESOURCE_NAMES:
+                while not choice in RESOURCE_NAMES2:
                     choice = input("enter a correct resource: ")
                 while len(b[choice]) == 0:
                     print("you don't have that card.")
@@ -442,7 +443,7 @@ class CatanBoard:
                 cards.Res_cards.cards[choice].append(b[choice].pop(0))
                 z += 1
             print('You now have the following cards:')
-            for i in RESOURCE_NAMES:
+            for i in RESOURCE_NAMES2:
                 print(len(b[i]),' ',i,'\n')
                 
     def steal_card(self, player_number, position, target_player_number):
