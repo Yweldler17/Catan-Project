@@ -405,7 +405,7 @@ class CatanBoard:
         roll_die_two = random.randint(1, 6)
         return (roll_die_one + roll_die_two)
 
-    def discard_half(self, player_number, resources):
+    def discard_half(self, player_number): #, resources):
         """changes CatanBoard()/self if possible according to the rules of discarding cards if 7 rolled
 
         ################################ Insert/Modify Comments HERE ##################################
@@ -421,7 +421,30 @@ class CatanBoard:
 
         """
         ################################ Insert/Modify CODE HERE ##################################
-
+        a = player.CatanPlayer(player_nr)
+        b = a.player_hand
+        s = 0 #checking for min of 8 cards
+        for i in RESOURCE_NAMES:
+            s += len(b[i])
+        if s >= 8:
+            print('You have to return ',s//2,' cards.')
+            print('You have the following cards:')
+            for i in RESOURCE_NAMES:
+                print(len(b[i]),' ',i,'\n')
+            z = 0 # accumulator to count up to half the cards
+            while z < s//2:
+                choice = input("enter the card you want to return: ")
+                while not choice in RESOURCE_NAMES:
+                    choice = input("enter a correct resource: ")
+                while len(b[choice]) == 0:
+                    print("you don't have that card.")
+                    choice = input("enter a card you have: ")
+                cards.Res_cards.cards[choice].append(b[choice].pop(0))
+                z += 1
+            print('You now have the following cards:')
+            for i in RESOURCE_NAMES:
+                print(len(b[i]),' ',i,'\n')
+                
     def steal_card(self, player_number, position, target_player_number):
         """changes CatanBoard()/self if possible according to the rules of discarding cards if 7 rolled
 
