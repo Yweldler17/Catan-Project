@@ -86,7 +86,7 @@ class CatanBoard:
             self.board_resources[zero_tile_nr]
 
         # bank resources  "brick", "ore", "hay", "wood", "sheep"
-        self.bank = np.array([19, 19, 19, 19])
+        self.bank = cards.Res_cards.cards  #np.array([19, 19, 19, 19])
         # player_points player0, player1, player2, player3
         self.player_points = [0, 0, 0, 0]
         # longest road player_number initialisation with -1
@@ -438,7 +438,7 @@ class CatanBoard:
                 while len(b[choice]) == 0:
                     print("you don't have that card.")
                     choice = input("enter a card you have: ")
-                cards.Res_cards().cards[choice].append(b[choice].pop(0))
+                self.bank[choice].append(b[choice].pop(0))
             print('You now have the following cards:')
             for i in RESOURCE_NAMES2:
                 print(len(b[i]),' ',i)
