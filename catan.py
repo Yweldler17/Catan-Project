@@ -4,7 +4,7 @@ import catan_tile
 import catan_road
 import coordinate
 import cards
-import player
+
 
 # List of resources available to be distributed on the board
 RESOURCE_NAMES = ["desert", "brick", "ore", "hay", "wood", "sheep"]
@@ -407,7 +407,7 @@ class CatanBoard:
         roll_die_two = random.randint(1, 6)
         return (roll_die_one + roll_die_two)
 
-    def discard_half(self, player_number): #, resources):
+    def discard_half(self, player): #, resources):
         """changes CatanBoard()/self if possible according to the rules of discarding cards if 7 rolled
 
         ################################ Insert/Modify Comments HERE ##################################
@@ -424,7 +424,7 @@ class CatanBoard:
         """
         ################################ Insert/Modify CODE HERE ##################################
         RESOURCE_NAMES2 = [ "brick", "ore", "hay", "wood", "sheep"]
-        b = player.CatanPlayer(player_nr).player_hand
+        b = player.player_hand
         s = 0 #checking for min of 8 cards
         for i in RESOURCE_NAMES2:
             s += len(b[i])
