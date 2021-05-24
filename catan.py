@@ -326,6 +326,16 @@ class CatanBoard:
 
         self.settlements[settle_position] = player_number
         self.roads[road_position] = player_number
+        tile = [] #list to get tile index of coordinates list
+        for i in range(19):
+            for j in range(6):
+                if self.coordinates[i][j] == settle_position: 
+                    tile.append(i) #getting the index equivalent to player's chosen coordinates
+        tiles = [] 
+        for i in tile:  
+            tiles.append(self.board_resources[i]) #converting index to resource
+        for i in tiles: #giving player 3 resources of coordinates
+            player.CatanPlayer(player_number).player_hand[i].append(self.bank[i].pop(0)
 
     def check_points(self):
         """checks if somebody won the game (reached 10 points) and returns the winner or one of the point leaders
