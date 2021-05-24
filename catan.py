@@ -334,8 +334,9 @@ class CatanBoard:
         tiles = [] 
         for i in tile:  
             tiles.append(self.board_resources[i]) #converting index to resource
-        for i in tiles: #giving player 3 resources of coordinates
-            player.CatanPlayer(player_number).player_hand[i].append(self.bank[i].pop(0)
+        for i in tiles:#giving player 3 resources of coordinates
+            if i != 'desert':
+                player.CatanPlayer(player_number).player_hand[i].append(self.bank[i].pop(0)
 
     def check_points(self):
         """checks if somebody won the game (reached 10 points) and returns the winner or one of the point leaders
