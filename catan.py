@@ -526,6 +526,11 @@ class CatanBoard:
         resource_bank -- integer 1-5
         """
         ################################ Insert/Modify CODE HERE ##################################
+        
+        for i in range(4):
+            self.bank[resource_own].append(player.CatanPlayer(player_number).player_hand[resource_own].pop(0)) #player giving the bank 4 cards
+        player.CatanPlayer(player_number).player_hand[resource_bank].append(self.bank[resource_bank].pop(0)) #player taking one card from the bank
+
 
     def trade_offer(self, player_number, resources_own, target_player_number, resources_target, answer_target=False):
         """changes CatanBoard()/self if possible according to the rules bank trading including ports:
