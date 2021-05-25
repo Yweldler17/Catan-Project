@@ -1,3 +1,4 @@
+import catan
 import numpy as np
 
 RESOURCE_NAMES = [ "brick", "ore", "hay", "wood", "sheep"]
@@ -132,9 +133,9 @@ class CatanPlayer:
         ################################ Insert/Modify CODE HERE ##################################
         resource_own, resource_bank = 
             input('insert resource your giving to bank'), input('insert resource you want from bank')
-        while len(self.player_hand[resource_own]) < 4: # validating that player has 4 such cards
+        while len(self.player_hand[resource_own]) < 4 or len(catan.bank[resource_bank]) == 0: # validating that player has 4 such cards & bank has 1
             resource_own, resource_bank = 
-                input('choose a resource of which you have 4 cards: '), input('insert resource you want from bank: ')
+                input('choose a resource of which you have 4 cards: '), input('insert resource that bank has: ')
         return resource_own, resource_bank
 
     def trade_offer(self, board):
