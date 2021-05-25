@@ -131,7 +131,7 @@ class CatanPlayer:
         """
         ################################ Insert/Modify CODE HERE ##################################
         resource_own, resource_bank = int(
-            input('insert argument')), int(input('insert argument'))
+            input('insert resources your giving to bank')), int(input('insert resource you want from bank'))
         return resource_own, resource_bank
 
     def trade_offer(self, board):
@@ -148,8 +148,8 @@ class CatanPlayer:
         """
         ################################ Insert/Modify CODE HERE ##################################
         resources_own, target_player_number, resources_target = input(
-            'insert argument'),
-        input('insert argument'), input('insert argument')
+            'insert resources you want'),
+        input('insert player you want to trade with'), input('insert resources you want from that player')
 
         return resources_own, target_player_number, resources_target
 
