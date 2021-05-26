@@ -59,7 +59,8 @@ class CatanPlayer:
 
         """
         ################################ Insert/Modify CODE HERE ##################################
-        return 0
+        choice = int(input('choose an action'))
+        return choice
 
     def discard_half(self, board):
         """

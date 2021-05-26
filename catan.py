@@ -9,6 +9,7 @@ import cards
 
 # List of resources available to be distributed on the board
 RESOURCE_NAMES = ["desert", "brick", "ore", "hay", "wood", "sheep"]
+RESOURCE_NAMES2 = ["brick", "ore", "hay", "wood", "sheep"]
 # Create a dictionary of each resource and a corresponding number id
 res_dict = dict(zip(RESOURCE_NAMES, np.arange(0, len(RESOURCE_NAMES))))
 # List of available ports that can be distributed around the board
@@ -56,7 +57,7 @@ class CatanBoard:
         # This number is the same length as the available resources
         self.number_of_tiles = len(self.board_resources)
         # Settlements and roads need to be tracked.
-        self.settlements = np.array([0] * (30 + 18 + 6))
+        self.settlements = np.array([-1] * (30 + 18 + 6))
         self.roads = np.array([0] * (12 * 5 + 6 + 6))
 
         # Zero_tile_nr will represent where the 0 number exists
@@ -403,10 +404,16 @@ class CatanBoard:
         """
         ################################ Insert/Modify CODE HERE ##################################
 
-    def add_tile_resources(self, tile):
+    def add_tile_resources(self, tile, player_list):
         """ add code to hand out all resources on the tile spun"""
+        for index in range(len(self.settlements)):
+            if index in tile.coordinates:
+                if self.settlements[index] > -1:
+                    player_list[self.settlements[index]].add_to_hand(
+                        RESOURCE_NAMES[tile.resource]
+                    )
 
-    def roll_dice(self, player_number):
+    def roll_dice(self, player_number, player_list):
         """changes CatanBoard()/self if possible according to the rules of rolling dice in catan:
 
         ################################ Insert/Modify Comments HERE ##################################
@@ -420,8 +427,9 @@ class CatanBoard:
         roll_die_two = random.randint(1, 6)
         spin_num = roll_die_one + roll_die_two
         for tile in self.board_layout:
-            if spin_num == tile.value:
-                self.add_tile_resources(tile)
+            if tile.resource > 0:
+                if spin_num == tile.value:
+                    self.add_tile_resources(tile, player_list)
 
         return spin_num
 
@@ -441,8 +449,8 @@ class CatanBoard:
 
         """
         ################################ Insert/Modify CODE HERE ##################################
-        RESOURCE_NAMES2 = ["brick", "ore", "hay", "wood", "sheep"]
-        b = player.player_hand
+
+        b = player.hand
         s = 0  # checking for min of 8 cards
         for i in RESOURCE_NAMES2:
             s += len(b[i])
@@ -536,8 +544,8 @@ class CatanBoard:
 
         for i in range(4):
             self.bank[resource_own].append(player.CatanPlayer(
-                player_number).player_hand[resource_own].pop(0))  # player giving the bank 4 cards
-        player.CatanPlayer(player_number).player_hand[resource_bank].append(
+                player_number).hand[resource_own].pop(0))  # player giving the bank 4 cards
+        player.CatanPlayer(player_number).hand[resource_bank].append(
             self.bank[resource_bank].pop(0))  # player taking one card from the bank
 
     def trade_offer(self, player_number, resources_own, target_player_number, resources_target, answer_target=False):

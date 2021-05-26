@@ -49,7 +49,7 @@ if __name__ == '__main__':
         settle_position, road_position = current_player.start_settelment_second(
             board_safety_copy)
         board.start_settelment_second(current_player,
-            player_number, settle_position, road_position)
+                                      player_number, settle_position, road_position)
 
     # game will be played for maximum MAXIMUM_ROUNDS
     for game_round in range(MAXIMUM_ROUNDS):
@@ -61,6 +61,8 @@ if __name__ == '__main__':
             # print statements for debugging
             print('It is turn of player number:{0}'.format(
                 current_player.player_number))
+            for player_number in range(4):
+                print(players[player_number].hand)
             choice = 42  # random positive number for initialisation
             while choice > 0:
                 # making safety working copy of board (can be changed in later
@@ -73,7 +75,7 @@ if __name__ == '__main__':
                 # choices below are moves available to a player
                 if choice == 2:
                     # roll dice
-                    ok, dice_number = board.roll_dice(player_number)
+                    dice_number = board.roll_dice(player_number, players)
                     if dice_number == 7:
                         for p_nr in range(4):
                             p = players[p_nr]
