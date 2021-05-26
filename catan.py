@@ -403,6 +403,9 @@ class CatanBoard:
         """
         ################################ Insert/Modify CODE HERE ##################################
 
+    def add_tile_resources(self, tile):
+        """ add code to hand out all resources on the tile spun"""
+
     def roll_dice(self, player_number):
         """changes CatanBoard()/self if possible according to the rules of rolling dice in catan:
 
@@ -415,7 +418,12 @@ class CatanBoard:
         ################################ Insert/Modify CODE HERE ##################################
         roll_die_one = random.randint(1, 6)
         roll_die_two = random.randint(1, 6)
-        return (roll_die_one + roll_die_two)
+        spin_num = roll_die_one + roll_die_two
+        for tile in self.board_layout:
+            if spin_num == tile.value:
+                self.add_tile_resources(tile)
+
+        return spin_num
 
     def discard_half(self, player):  # , resources):
         """changes CatanBoard()/self if possible according to the rules of discarding cards if 7 rolled
