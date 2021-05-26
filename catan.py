@@ -1,5 +1,6 @@
 import numpy as np
 import random
+import player
 import catan_tile
 import catan_road
 import coordinate
@@ -88,7 +89,7 @@ class CatanBoard:
             self.board_resources[zero_tile_nr]
 
         # bank resources  "brick", "ore", "hay", "wood", "sheep"
-        self.bank = cards.Res_cards().cards  #np.array([19, 19, 19, 19])
+        self.bank = cards.Res_cards().cards  # np.array([19, 19, 19, 19])
         # player_points player0, player1, player2, player3
         self.player_points = [0, 0, 0, 0]
         # longest road player_number initialisation with -1
@@ -325,18 +326,16 @@ class CatanBoard:
         ################################ Insert/Modify CODE HERE ##################################
 
         self.settlements[settle_position] = player_number
+        self.coordinate_list[settle_position].status = "Unavailable"
         self.roads[road_position] = player_number
-        tile = [] #list to get tile index of coordinates list
-        for i in range(19):
-            for j in range(6):
-                if self.coordinates[i][j] == settle_position: 
-                    tile.append(i) #getting the index equivalent to player's chosen coordinates
-        tiles = [] 
-        for i in tile:  
-            tiles.append(self.board_resources[i]) #converting index to resource
-        for i in tiles:#giving player 3 resources of coordinates
-            if i != 'desert':
-                current_player.player_hand[i].append(self.bank[i].pop(0))
+        self.road_list[road_position].status = "Unavailable"
+
+        starting_resources = []
+        for tile in self.board_layout:
+            if settle_position in tile.coordinates:
+                # check if tile is desert
+                if tile.resource > 0:
+                    current_player.add_to_hand(RESOURCE_NAMES[tile.resource])
 
     def check_points(self):
         """checks if somebody won the game (reached 10 points) and returns the winner or one of the point leaders
@@ -418,7 +417,7 @@ class CatanBoard:
         roll_die_two = random.randint(1, 6)
         return (roll_die_one + roll_die_two)
 
-    def discard_half(self, player): #, resources):
+    def discard_half(self, player):  # , resources):
         """changes CatanBoard()/self if possible according to the rules of discarding cards if 7 rolled
 
         ################################ Insert/Modify Comments HERE ##################################
@@ -434,17 +433,17 @@ class CatanBoard:
 
         """
         ################################ Insert/Modify CODE HERE ##################################
-        RESOURCE_NAMES2 = [ "brick", "ore", "hay", "wood", "sheep"]
+        RESOURCE_NAMES2 = ["brick", "ore", "hay", "wood", "sheep"]
         b = player.player_hand
-        s = 0 #checking for min of 8 cards
+        s = 0  # checking for min of 8 cards
         for i in RESOURCE_NAMES2:
             s += len(b[i])
         if s >= 8:
-            print('You have to return ',s//2,' cards.')
+            print('You have to return ', s//2, ' cards.')
             print('You have the following cards:')
             for i in RESOURCE_NAMES2:
-                print(len(b[i]),' ',i)
-            for i in range (s//2):
+                print(len(b[i]), ' ', i)
+            for i in range(s//2):
                 choice = input("enter the card you want to return: ")
                 while not choice in RESOURCE_NAMES2:
                     choice = input("enter a correct resource: ")
@@ -454,8 +453,8 @@ class CatanBoard:
                 self.bank[choice].append(b[choice].pop(0))
             print('You now have the following cards:')
             for i in RESOURCE_NAMES2:
-                print(len(b[i]),' ',i)
-                
+                print(len(b[i]), ' ', i)
+
     def steal_card(self, player_number, position, target_player_number):
         """changes CatanBoard()/self if possible according to the rules of discarding cards if 7 rolled
 
@@ -526,11 +525,12 @@ class CatanBoard:
         resource_bank -- integer 1-5
         """
         ################################ Insert/Modify CODE HERE ##################################
-        
-        for i in range(4):
-            self.bank[resource_own].append(player.CatanPlayer(player_number).player_hand[resource_own].pop(0)) #player giving the bank 4 cards
-        player.CatanPlayer(player_number).player_hand[resource_bank].append(self.bank[resource_bank].pop(0)) #player taking one card from the bank
 
+        for i in range(4):
+            self.bank[resource_own].append(player.CatanPlayer(
+                player_number).player_hand[resource_own].pop(0))  # player giving the bank 4 cards
+        player.CatanPlayer(player_number).player_hand[resource_bank].append(
+            self.bank[resource_bank].pop(0))  # player taking one card from the bank
 
     def trade_offer(self, player_number, resources_own, target_player_number, resources_target, answer_target=False):
         """changes CatanBoard()/self if possible according to the rules bank trading including ports:

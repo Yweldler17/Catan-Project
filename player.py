@@ -1,16 +1,20 @@
 import catan
 import numpy as np
 
-RESOURCE_NAMES = [ "brick", "ore", "hay", "wood", "sheep"]
+RESOURCE_NAMES = ["brick", "ore", "hay", "wood", "sheep"]
+
+
 class CatanPlayer:
     # Initialize the Catan Board with all the options for resources, numbers to be rolled,
     # settlements/roads, port options
     def __init__(self, player_number):
         self.player_number = player_number
-        self.player_hand = {}
+        self.hand = {}
         for i in RESOURCE_NAMES:
-            self.player_hand[i] = []
-            
+            self.hand[i] = 0
+
+    def add_to_hand(self, card):
+        self.hand[card] += 1
 
     def set_settlement(self, board):
         """
@@ -131,11 +135,9 @@ class CatanPlayer:
 
         """
         ################################ Insert/Modify CODE HERE ##################################
-        resource_own, resource_bank = 
-            input('insert resource your giving to bank'), input('insert resource you want from bank')
-        while len(self.player_hand[resource_own]) < 4 or len(catan.bank[resource_bank]) == 0: # validating that player has 4 such cards & bank has 1
-            resource_own, resource_bank = 
-                input('choose a resource of which you have 4 cards: '), input('insert resource that bank has: ')
+        resource_own, resource_bank = int(input('Select resource to trade in')), int(
+            input('insert resource to receive'))
+        # validating that player has 4 such cards & bank has 1
         return resource_own, resource_bank
 
     def trade_offer(self, board):
@@ -153,7 +155,8 @@ class CatanPlayer:
         ################################ Insert/Modify CODE HERE ##################################
         resources_own, target_player_number, resources_target = input(
             'insert resources you want'),
-        input('insert player you want to trade with'), input('insert resources you want from that player')
+        input('insert player you want to trade with'), input(
+            'insert resources you want from that player')
 
         return resources_own, target_player_number, resources_target
 
