@@ -14,6 +14,7 @@ it would be also usefull to write log of the game in a file
 # the game is played for maximum 30 rounds (30*4 = 120 turns) to prevent infinite loops
 MAXIMUM_ROUNDS = 30
 
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
@@ -32,7 +33,6 @@ if __name__ == '__main__':
     for player_number in range(4):
         current_player = players[player_number]
         board_safety_copy = copy.deepcopy(board)
-        print(board)
 
         # Player chooses first settlement and road
         settle_position, road_position = current_player.start_settelment_first(
@@ -43,7 +43,7 @@ if __name__ == '__main__':
             player_number, settle_position, road_position)
 
     # second settelment with road
-    for player_number in range(3, 0, -1):
+    for player_number in range(3, -1, -1):
         current_player = players[player_number]
         board_safety_copy = copy.deepcopy(board)
         settle_position, road_position = current_player.start_settelment_second(
@@ -51,6 +51,8 @@ if __name__ == '__main__':
         board.start_settelment_second(current_player,
                                       player_number, settle_position, road_position)
 
+    for coord in board.coordinate_list:
+        print(coord)
     # game will be played for maximum MAXIMUM_ROUNDS
     for game_round in range(MAXIMUM_ROUNDS):
         # print statements for debugging
@@ -61,8 +63,6 @@ if __name__ == '__main__':
             # print statements for debugging
             print('It is turn of player number:{0}'.format(
                 current_player.player_number))
-            for player_number in range(4):
-                print(players[player_number].hand)
             choice = 42  # random positive number for initialisation
             while choice > 0:
                 # making safety working copy of board (can be changed in later
@@ -76,6 +76,7 @@ if __name__ == '__main__':
                 if choice == 2:
                     # roll dice
                     dice_number = board.roll_dice(player_number, players)
+                    print(dice_number)
                     if dice_number == 7:
                         for p_nr in range(4):
                             p = players[p_nr]

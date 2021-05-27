@@ -23,7 +23,14 @@ class CatanPlayer:
         generate buy_settlement input:
         output -- position -- integer 0-54 """
         ################################ Insert/Modify CODE HERE ##################################
-        position = int(input('Insert settlement you wish to buy. 0-54'))
+        valid_choice = False
+        while not valid_choice:
+            position = int(input('Insert settlement you wish to buy. 0-54'))
+            if board.coordinate_list[position].status == "Open":
+                valid_choice = True
+            else:
+                print("Position is unavailable")
+
         return position
 
     def set_city(self, board):
@@ -180,8 +187,15 @@ class CatanPlayer:
         """
         ################################ Insert/Modify CODE HERE ##################################
 
-        settle_position, road_position = int(
-            input('Place your Settlement')), int(input('Place your Road'))
+        valid_choice = False
+        while not valid_choice:
+            settle_position = int(input('Place your Settlement'))
+            if board.coordinate_list[settle_position].status == "Open":
+                valid_choice = True
+            else:
+                print("Position is unavailable")
+
+        road_position = int(input('Place your Road'))
         return settle_position, road_position
 
     def start_settelment_first(self, board):
@@ -192,9 +206,15 @@ class CatanPlayer:
             road_position integer 0-71
         """
         ################################ Insert/Modify CODE HERE ##################################
+        valid_choice = False
+        while not valid_choice:
+            settle_position = int(input('Place your Settlement'))
+            if board.coordinate_list[settle_position].status == "Open":
+                valid_choice = True
+            else:
+                print("Position is unavailable")
 
-        settle_position, road_position = int(
-            input('Place your Settlement')), int(input('Place your Road'))
+        road_position = int(input('Place your Road'))
         return settle_position, road_position
 
 

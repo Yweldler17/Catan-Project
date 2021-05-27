@@ -58,6 +58,7 @@ class CatanBoard:
         self.number_of_tiles = len(self.board_resources)
         # Settlements and roads need to be tracked.
         self.settlements = np.array([-1] * (30 + 18 + 6))
+        self.cities = np.array([-1] * (30 + 18 + 6))
         self.roads = np.array([0] * (12 * 5 + 6 + 6))
 
         # Zero_tile_nr will represent where the 0 number exists
@@ -292,6 +293,26 @@ class CatanBoard:
 
         return printed_board
 
+    def disable_adjacent_coordinates(self, current_coordinate):
+        for tile in self.board_layout:
+            for index in range(len(tile.coordinates)):
+                if tile.coordinates[index] == current_coordinate:
+                    if index > 0 and index < 5:
+                        self.coordinate_list[tile.coordinates[index - 1]
+                                             ].status = "Unavailable"
+                        self.coordinate_list[tile.coordinates[index + 1]
+                                             ].status = "Unavailable"
+                    elif index == 5:
+                        self.coordinate_list[tile.coordinates[index - 1]
+                                             ].status = "Unavailable"
+                        self.coordinate_list[tile.coordinates[0]
+                                             ].status = "Unavailable"
+                    else:
+                        self.coordinate_list[tile.coordinates[5]
+                                             ].status = "Unavailable"
+                        self.coordinate_list[tile.coordinates[index + 1]
+                                             ].status = "Unavailable"
+
     def start_settelment_first(self, player_number, settle_position, road_position):
         """changes CatanBoard()/self if possible according to the rules of
         building the first starting settelment with an road
@@ -306,6 +327,7 @@ class CatanBoard:
         ################################ Insert/Modify CODE HERE ##################################
 
         self.settlements[settle_position] = player_number
+        self.disable_adjacent_coordinates(settle_position)
 
         # marks the coordinate as taken.
         ###############  insert code to mark off the 2 coordinates before and after the selected ################
@@ -327,6 +349,7 @@ class CatanBoard:
         ################################ Insert/Modify CODE HERE ##################################
 
         self.settlements[settle_position] = player_number
+        self.disable_adjacent_coordinates(settle_position)
         self.coordinate_list[settle_position].status = "Unavailable"
         self.roads[road_position] = player_number
         self.road_list[road_position].status = "Unavailable"
