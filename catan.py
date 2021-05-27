@@ -631,7 +631,7 @@ class CatanBoard:
         """
         ################################ Insert/Modify CODE HERE ##################################
         print('The current player is offering to exchange ',amount,' ',resources_own)
-        print('in exchange for 'amount2,' ',resources_target,'.')
+        print('in exchange for ',amount2,' ',resources_target,'.')
         accept = int(input('enter number of player who accepts the offer, enter ',player_nr,' if no-one: '))
         if accept != player_nr:
             for i in range(amount):
