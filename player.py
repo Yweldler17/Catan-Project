@@ -164,12 +164,10 @@ class CatanPlayer:
                 sheep --integer 0-19
         """
         ################################ Insert/Modify CODE HERE ##################################
-        resources_own, target_player_number, resources_target = input(
-            'insert resources you want'),
-        input('insert player you want to trade with'), input(
-            'insert resources you want from that player')
+        resources_own, amount, resources_target, amount2 = input('enter resource you are offering: '),
+        int(input('enter amount of cards: ')), input('enter the resource you are asking for: '), int(input('enter the amount: ))  
 
-        return resources_own, target_player_number, resources_target
+        return resources_own, amount, resources_target, amount2
 
     def trade_answer(self, board, resources_offered, resources_asked):
         """
