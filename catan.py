@@ -390,6 +390,10 @@ class CatanBoard:
         """
         ################################ Insert/Modify CODE HERE ##################################
 
+        self.settlements[position] = player_number
+        self.disable_adjacent_coordinates(position)
+        self.coordinate_list[position].status = "Unavailable"
+
     def buy_city(self, player_number, position):
         """changes CatanBoard()/self if possible according to the rules of building a city:
 
@@ -400,7 +404,17 @@ class CatanBoard:
         player_number -- integer 0-3
         position -- integer 0-53
         """
+
         ################################ Insert/Modify CODE HERE ##################################
+
+        valid_choice = False
+        while not valid_choice:
+            if self.settlements[position] == player_number:
+                self.settlements[position] = -1
+                self.cities[position] = player_number
+                valid_choice = True
+            else:
+                print("select a current settlement position")
 
     def buy_road(self, player_number, position):
         """changes CatanBoard()/self if possible according to the rules of building a road:
