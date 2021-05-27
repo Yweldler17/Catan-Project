@@ -123,12 +123,12 @@ if __name__ == '__main__':
                     board.trade_bank(
                         player_number, resource_own, resource_bank)
                 if choice == 13:
-                    resources_own, target_player_number, resources_target = current_player.trade_offer(
+                    resources_own, amount, resources_target, amount2 = current_player.trade_offer(
                         board_safety_copy)
-                    answer_target = players[target_player_number].trade_answer(board_safety_copy, resources_own,
-                                                                               resources_target)
-                    board.trade_offer(player_number, resources_own, target_player_number, resources_target,
-                                      answer_target)
+                    #answer_target = players[target_player_number].trade_answer(board_safety_copy, resources_own,
+                                                                              # resources_target)
+                    board.trade_offer(player_number, resources_own, amount, resources_target,
+                                      amount2)
 
             game_end, winner = board.check_points()
             if game_end:
