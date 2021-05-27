@@ -39,7 +39,7 @@ if __name__ == '__main__':
             board_safety_copy)
 
         # Place chosen settlement and road on board
-        board.start_settelment_first(
+        board.start_settlement_first(
             player_number, settle_position, road_position)
 
     # second settelment with road
@@ -48,7 +48,7 @@ if __name__ == '__main__':
         board_safety_copy = copy.deepcopy(board)
         settle_position, road_position = current_player.start_settelment_second(
             board_safety_copy)
-        board.start_settelment_second(current_player,
+        board.start_settlement_second(current_player,
                                       player_number, settle_position, road_position)
 
     for coord in board.coordinate_list:
