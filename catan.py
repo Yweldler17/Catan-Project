@@ -6,7 +6,6 @@ import catan_road
 import coordinate
 import cards
 
-
 # List of resources available to be distributed on the board
 RESOURCE_NAMES = ["desert", "brick", "ore", "hay", "wood", "sheep"]
 RESOURCE_NAMES2 = ["brick", "ore", "hay", "wood", "sheep"]
@@ -18,7 +17,7 @@ PORTS_NAMES = ["3:1", "2brick:1", "2ore:1", "2hay:1", "2wood:1", "2sheep:1"]
 port_dict = dict(zip(PORTS_NAMES, np.arange(0, len(PORTS_NAMES))))
 # Create a dictionary of each dev card and a corresponding number id
 DEVELOPMENT_CARD_NAMES = ["knight", "victory point",
-                          "road building", "year of plenty",  "monopoly"]
+                          "road building", "year of plenty", "monopoly"]
 dev_dict = dict(zip(DEVELOPMENT_CARD_NAMES,
                     np.arange(0, len(DEVELOPMENT_CARD_NAMES))))
 
@@ -62,13 +61,13 @@ class CatanBoard:
         self.roads = np.array([0] * (12 * 5 + 6 + 6))
 
         # Zero_tile_nr will represent where the 0 number exists
-        #zero_tile_nr = np.where(self.roll_numbers == 0)
+        # zero_tile_nr = np.where(self.roll_numbers == 0)
         # Desert_tile_nr will represent where the desert resource exists
-        #desert_tile_nr = np.where(self.board_resources == res_dict["desert"])
+        # desert_tile_nr = np.where(self.board_resources == res_dict["desert"])
         # Robber will keep track of where the robber is and it starts in the desert
-        #self.robber = desert_tile_nr
+        # self.robber = desert_tile_nr
         # as the desert tile and replace whatever was already in the desert tile into the empty zero tile
-        #self.roll_numbers[zero_tile_nr], self.roll_numbers[desert_tile_nr] = (self.roll_numbers[desert_tile_nr],self.roll_numbers[zero_tile_nr])
+        # self.roll_numbers[zero_tile_nr], self.roll_numbers[desert_tile_nr] = (self.roll_numbers[desert_tile_nr],self.roll_numbers[zero_tile_nr])
 
         # positioning the 6's & 8's to be apart
         a = self.roll_numbers
@@ -88,7 +87,7 @@ class CatanBoard:
         desert_tile_nr = np.where(self.board_resources == res_dict["desert"])
         self.robber = desert_tile_nr
         self.board_resources[zero_tile_nr], self.board_resources[desert_tile_nr] = self.board_resources[desert_tile_nr], \
-            self.board_resources[zero_tile_nr]
+                                                                                   self.board_resources[zero_tile_nr]
 
         # bank resources  "brick", "ore", "hay", "wood", "sheep"
         self.bank = cards.Res_cards().cards  # np.array([19, 19, 19, 19])
@@ -99,17 +98,17 @@ class CatanBoard:
         # longest largest_army player_number initialisation with -1
         self.largest_army = -1
         # devcards according to dev_dict dictionary
-        self.bank_devcards = np.array([14*[dev_dict["knight"]] + 5*[dev_dict["victory point"]] + 2*[
-                                      dev_dict["road building"]] + 2*[dev_dict["year of plenty"]] + 2*[dev_dict["monopoly"]]])
+        self.bank_devcards = np.array([14 * [dev_dict["knight"]] + 5 * [dev_dict["victory point"]] + 2 * [
+            dev_dict["road building"]] + 2 * [dev_dict["year of plenty"]] + 2 * [dev_dict["monopoly"]]])
         np.random.shuffle(self.bank_devcards)
         # played open knight cards for each player
         self.open_knights = [0, 0, 0, 0]
         # hidden unplayed dev cards for each player
         # as 2d materix  dev_dict x  player_number
-        self.hidden_dev_cards = np.array([[0]*5]*4)
+        self.hidden_dev_cards = np.array([[0] * 5] * 4)
         # how many dev cards were just bought this turn and can not be played
         # as 2d matrix dev_dict x  player_number
-        self.new_hidden_dev_card = np.array([[0]*5]*4)
+        self.new_hidden_dev_card = np.array([[0] * 5] * 4)
 
         # road_list is an array for all road object positions
         self.road_list = []
@@ -166,7 +165,7 @@ class CatanBoard:
                         self.coordinates[i][j], self.coordinates[i][0]]
                 else:
                     current_coordinates = [
-                        self.coordinates[i][j], self.coordinates[i][j+1]]
+                        self.coordinates[i][j], self.coordinates[i][j + 1]]
 
                 current_coordinates.sort()
                 full_combo_list.append(current_coordinates)
@@ -299,21 +298,21 @@ class CatanBoard:
                 if tile.coordinates[index] == current_coordinate:
                     if index > 0 and index < 5:
                         self.coordinate_list[tile.coordinates[index - 1]
-                                             ].status = "Unavailable"
+                        ].status = "Unavailable"
                         self.coordinate_list[tile.coordinates[index + 1]
-                                             ].status = "Unavailable"
+                        ].status = "Unavailable"
                     elif index == 5:
                         self.coordinate_list[tile.coordinates[index - 1]
-                                             ].status = "Unavailable"
+                        ].status = "Unavailable"
                         self.coordinate_list[tile.coordinates[0]
-                                             ].status = "Unavailable"
+                        ].status = "Unavailable"
                     else:
                         self.coordinate_list[tile.coordinates[5]
-                                             ].status = "Unavailable"
+                        ].status = "Unavailable"
                         self.coordinate_list[tile.coordinates[index + 1]
-                                             ].status = "Unavailable"
+                        ].status = "Unavailable"
 
-    def start_settelment_first(self, player_number, settle_position, road_position):
+    def start_settlement_first(self, player_number, settle_position, road_position):
         """changes CatanBoard()/self if possible according to the rules of
         building the first starting settelment with an road
 
@@ -336,7 +335,7 @@ class CatanBoard:
         self.roads[road_position] = player_number
         self.road_list[road_position].status = "Unavailable"
 
-    def start_settelment_second(self, current_player, player_number, settle_position, road_position):
+    def start_settlement_second(self, current_player, player_number, settle_position, road_position):
         """changes CatanBoard()/self if possible according to the rules of
          building the first starting settelment with an road
         ################################ Insert/Modify Comments HERE ##################################
@@ -487,26 +486,26 @@ class CatanBoard:
         """
         ################################ Insert/Modify CODE HERE ##################################
 
-        b = player.hand
-        s = 0  # checking for min of 8 cards
-        for i in RESOURCE_NAMES2:
-            s += len(b[i])
-        if s >= 8:
-            print('You have to return ', s//2, ' cards.')
+        player_hand = player.hand
+        cards_to_discard = 0  # checking for min of 8 cards
+        for resource in RESOURCE_NAMES2:
+            cards_to_discard += len(player_hand[resource])
+        if cards_to_discard >= 8:
+            print('You have to return ', cards_to_discard // 2, ' cards.')
             print('You have the following cards:')
-            for i in RESOURCE_NAMES2:
-                print(len(b[i]), ' ', i)
-            for i in range(s//2):
+            for resource in RESOURCE_NAMES2:
+                print(len(player_hand[resource]), ' ', resource)
+            for resource in range(cards_to_discard // 2):
                 choice = input("enter the card you want to return: ")
                 while not choice in RESOURCE_NAMES2:
                     choice = input("enter a correct resource: ")
-                while len(b[choice]) == 0:
+                while len(player_hand[choice]) == 0:
                     print("you don't have that card.")
                     choice = input("enter a card you have: ")
-                self.bank[choice].append(b[choice].pop(0))
+                self.bank[choice].append(player_hand[choice].pop(0))
             print('You now have the following cards:')
-            for i in RESOURCE_NAMES2:
-                print(len(b[i]), ' ', i)
+            for resource in RESOURCE_NAMES2:
+                print(len(player_hand[resource]), ' ', resource)
 
     def steal_card(self, player_number, position, target_player_number):
         """changes CatanBoard()/self if possible according to the rules of discarding cards if 7 rolled
@@ -610,6 +609,6 @@ if __name__ == '__main__':
      """
 
     ################################ Insert/Modify CODE HERE ##################################
-    b = CatanBoard()
-    print(b)
+    catan_board = CatanBoard()
+    print(catan_board)
     print('Debug complete')
