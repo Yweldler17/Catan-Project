@@ -16,6 +16,9 @@ class CatanPlayer:
     def add_to_hand(self, card):
         self.hand[card] += 1
 
+    def remove_from_hand(self, card):
+        self.hand[card] -= 1
+
     def set_settlement(self, board):
         """
         ################################ Insert/Modify Comments HERE ##################################

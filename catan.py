@@ -91,7 +91,7 @@ class CatanBoard:
             self.board_resources[zero_tile_nr]
 
         # bank resources  "brick", "ore", "hay", "wood", "sheep"
-        self.bank = cards.Res_cards().cards  # np.array([19, 19, 19, 19])
+        self.bank = cards.Res_cards()  # np.array([19, 19, 19, 19])
         # player_points player0, player1, player2, player3
         self.player_points = [0, 0, 0, 0]
         # longest road player_number initialisation with -1
@@ -377,7 +377,24 @@ class CatanBoard:
                 game_end, winner = True, index
         return game_end, winner
 
-    def buy_settlement(self, player_number, position):
+    def check_hand(self, players, player_num, resources):
+        valid = True
+        for resource in RESOURCE_NAMES2:
+            if resources[resource] > 0 and players[player_num].hand[resource] >= resources[resource]:
+                print('Has enough!!!!', resource)
+            else:
+                print('Not enough ', resource)
+                valid = False
+
+        if valid:
+            for resource in RESOURCE_NAMES2:
+                for index in range(resources[resource]):
+                    players[player_num].remove_from_hand(resource)
+                    self.bank.add_to_bank(resource)
+
+        return valid
+
+    def buy_settlement(self, players, player_number, position):
         """changes CatanBoard()/self if possible according to the rules of building a settelment:
 
         ################################ Insert/Modify Comments HERE ##################################
@@ -389,10 +406,22 @@ class CatanBoard:
 
         """
         ################################ Insert/Modify CODE HERE ##################################
+        cost = {
+            "hay": 1,
+            "wood": 1,
+            "brick": 1,
+            "sheep": 1,
+            "ore": 0
+        }
+        valid = self.check_hand(players, player_number, cost)
+        if valid:
+            self.settlements[position] = player_number
+            self.disable_adjacent_coordinates(position)
+            self.coordinate_list[position].status = "Unavailable"
 
-        self.settlements[position] = player_number
-        self.disable_adjacent_coordinates(position)
-        self.coordinate_list[position].status = "Unavailable"
+        for i in range(5):
+            print(self.bank.cards[RESOURCE_NAMES2[i]])
+            print(players[player_number].hand[RESOURCE_NAMES2[i]])
 
     def buy_city(self, player_number, position):
         """changes CatanBoard()/self if possible according to the rules of building a city:

@@ -90,7 +90,7 @@ if __name__ == '__main__':
                 # choice 3 is to buy a settlement
                 if choice == 3:
                     position = current_player.set_settlement(board_safety_copy)
-                    board.buy_settlement(player_number, position)
+                    board.buy_settlement(players, player_number, position)
                 # choice 4 is to buy a city
                 if choice == 4:
                     position = current_player.set_city(board_safety_copy)
