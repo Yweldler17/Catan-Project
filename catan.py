@@ -613,7 +613,7 @@ class CatanBoard:
         player.CatanPlayer(player_number).hand[resource_bank].append(
             self.bank[resource_bank].pop(0))  # player taking one card from the bank
 
-    def trade_offer(self, player_number, resources_own, target_player_number, resources_target, answer_target=False):
+    def trade_offer(self, player_number, resources_own, amount, resources_target, amount2):
         """changes CatanBoard()/self if possible according to the rules bank trading including ports:
 
         ################################ Insert/Modify Comments HERE ##################################
@@ -630,7 +630,15 @@ class CatanBoard:
         answer_target -- TRUE for yes or FALSE for no
         """
         ################################ Insert/Modify CODE HERE ##################################
-
+        print('The current player is offering to exchange ',amount,' ',resources_own)
+        print('in exchange for 'amount2,' ',resources_target,'.')
+        accept = int(input('enter number of player who accepts the offer, enter ',player_nr,' if no-one: '))
+        if accept != player_nr:
+            for i in range(amount):
+                player.hand[resources_own].append(player.CatanPlayer(accept).hand[resources_own].pop(0))
+            for i in range(amount2):
+                player.CatanPlayer(accept).hand[resources_target].append( player.hand[resources_target].pop(0))
+        
 
 if __name__ == '__main__':
     """
