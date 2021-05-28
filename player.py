@@ -2,6 +2,8 @@ import catan
 import numpy as np
 
 RESOURCE_NAMES = ["brick", "ore", "hay", "wood", "sheep"]
+DEVELOPMENT_CARD_NAMES = ["knight", "victory point",
+                          "road building", "year of plenty", "monopoly"]
 
 
 class CatanPlayer:
@@ -9,15 +11,27 @@ class CatanPlayer:
     # settlements/roads, port options
     def __init__(self, player_number):
         self.player_number = player_number
+        
         self.hand = {}
         for i in RESOURCE_NAMES:
             self.hand[i] = 0
+            
+        self.dev_card = {}
+        for i in DEVELOPMENT_CARD_NAMES:
+            self.dev_card = 0
+        
 
     def add_to_hand(self, card):
         self.hand[card] += 1
 
     def remove_from_hand(self, card):
         self.hand[card] -= 1
+        
+    def add_dev(self, card):
+        self.dev_card[card] += 1
+        if card == DEVELOPMENT_CARD_NAMES[1]:
+             catan.player_points[player_number] += 1
+    
 
     def print_hand(self):
         print('Player Number: {}', format(self.player_number))
