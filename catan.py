@@ -470,6 +470,17 @@ class CatanBoard:
 
         """
         ################################ Insert/Modify CODE HERE ##################################
+        player.show_dev()
+        choice = int(input('choose the dev_card: '))
+        choice = dev_convert(choice)
+        add_dev(choice)
+        player.remove_from_hand('wool' )
+        player.remove_from_hand('ore' )
+        player.remove_from_hand('hay' )
+        self.bank.add_to_bank('wool')
+        self.bank.add_to_bank('ore')
+        self.bank.add_to_bank('hay')
+        
 
     def add_tile_resources(self, tile, player_list):
         """ add code to hand out all resources on the tile spun"""
