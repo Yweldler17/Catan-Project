@@ -526,15 +526,18 @@ class CatanBoard:
             print('You have the following cards:')
             for resource in RESOURCE_NAMES2:
                 print(player_hand[resource], ' ', resource)
+            print()
+            player.show_options()
             for resource in range(cards_to_discard // 2):
-                choice = input("enter the card you want to return: ")
+                choice = int(input("enter the card you want to return: "))
+                choice = player.convert(choice)
                 while not choice in RESOURCE_NAMES2:
                     choice = input("enter a correct resource: ")
                 while player_hand[choice] == 0:
                     print("you don't have that card.")
                     choice = input("enter a card you have: ")
-                player.remove_from_hand(self, choice)
-                cards.add_to_bank(self, choice)
+                player.remove_from_hand( choice)
+                self.bank.add_to_bank(choice)
             print('You now have the following cards:')
             for resource in RESOURCE_NAMES2:
                 print(player_hand[resource], ' ', resource)
@@ -611,10 +614,10 @@ class CatanBoard:
         ################################ Insert/Modify CODE HERE ##################################
 
         for i in range(4):
-            self.bank[resource_own].append(player.CatanPlayer(
-                player_number).hand[resource_own].pop(0))  # player giving the bank 4 cards
-        player.CatanPlayer(player_number).hand[resource_bank].append(
-            self.bank[resource_bank].pop(0))  # player taking one card from the bank
+            player.remove_from_hand( resource_own)
+            self.bank.add_to_bank(resource_own) # player giving the bank 4 cards
+        player.add_to_hand( resource_bank)  # player taking one card from the bank
+        self.bank.remove_from_bank( resource_bank ):
 
     def trade_offer(self, player_number, resources_own, amount, resources_target, amount2):
         """changes CatanBoard()/self if possible according to the rules bank trading including ports:
@@ -640,11 +643,11 @@ class CatanBoard:
             'enter number of player who accepts the offer, enter ', player_number, ' if no-one: '))
         if accept != player_number:
             for i in range(amount):
-                player.hand[resources_own].append(
-                    player.CatanPlayer(accept).hand[resources_own].pop(0))
+                player.add_to_hand(resources_target)
+                player.CatanPlayer(accept).remove_from_hand( resources_target)
             for i in range(amount2):
-                player.CatanPlayer(accept).hand[resources_target].append(
-                    player.hand[resources_target].pop(0))
+                player.CatanPlayer(accept).add_to_hand(resources_own)
+                player.remove_from_hand( resources_own)
 
 
 if __name__ == '__main__':
