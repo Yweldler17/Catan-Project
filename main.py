@@ -110,7 +110,7 @@ if __name__ == '__main__':
                     # choice 5 is to buy a road
                     if choice == 5:
                         position = current_player.set_road(board_safety_copy)
-                        board.buy_road(player_number, position)
+                        board.buy_road(players, player_number, position)
                     if choice == 6:
                         board.buy_dev_card(player_number)
                     if choice == 7:

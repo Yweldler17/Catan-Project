@@ -448,7 +448,7 @@ class CatanBoard:
             self.settlements[position] = -1
             self.cities[position] = player_number
 
-    def buy_road(self, player_number, position):
+    def buy_road(self, players, player_number, position):
         """changes CatanBoard()/self if possible according to the rules of building a road:
 
         ################################ Insert/Modify Comments HERE ##################################
@@ -460,6 +460,18 @@ class CatanBoard:
 
         """
         ################################ Insert/Modify CODE HERE ##################################
+
+        cost = {
+            "hay": 0,
+            "wood": 1,
+            "brick": 1,
+            "sheep": 0,
+            "ore": 0
+        }
+        valid = self.check_hand(players, player_number, cost)
+        if valid:
+            self.roads[position] = player_number
+            self.road_list[position].status = "Unavailable"
 
     def buy_dev_card(self, player_number):
         """changes CatanBoard()/self if possible according to the rules of buying a development card card:
@@ -478,15 +490,14 @@ class CatanBoard:
         if self.dev_bank[choice] != 0:
             player.add_dev(choice)
             self.dev_bank.remove_from_bank(choice)
-            player.remove_from_hand('wool' )
-            player.remove_from_hand('ore' )
-            player.remove_from_hand('hay' )
+            player.remove_from_hand('wool')
+            player.remove_from_hand('ore')
+            player.remove_from_hand('hay')
             self.bank.add_to_bank('wool')
             self.bank.add_to_bank('ore')
             self.bank.add_to_bank('hay')
         else:
             print('Card is not in bank.')
-        
 
     def add_tile_resources(self, tile, player_list):
         """ add code to hand out all resources on the tile spun"""
@@ -553,7 +564,7 @@ class CatanBoard:
                 while player_hand[choice] == 0:
                     print("you don't have that card.")
                     choice = input("enter a card you have: ")
-                player.remove_from_hand( choice)
+                player.remove_from_hand(choice)
                 self.bank.add_to_bank(choice)
             print('You now have the following cards:')
             for resource in RESOURCE_NAMES2:
@@ -631,10 +642,12 @@ class CatanBoard:
         ################################ Insert/Modify CODE HERE ##################################
 
         for i in range(4):
-            player.remove_from_hand( resource_own)
-            self.bank.add_to_bank(resource_own) # player giving the bank 4 cards
-        player.add_to_hand( resource_bank)  # player taking one card from the bank
-        self.bank.remove_from_bank( resource_bank ):
+            player.remove_from_hand(resource_own)
+            # player giving the bank 4 cards
+            self.bank.add_to_bank(resource_own)
+        # player taking one card from the bank
+        player.add_to_hand(resource_bank)
+        self.bank.remove_from_bank(resource_bank):
 
     def trade_offer(self, player_number, resources_own, amount, resources_target, amount2):
         """changes CatanBoard()/self if possible according to the rules bank trading including ports:
@@ -661,10 +674,10 @@ class CatanBoard:
         if accept != player_number:
             for i in range(amount):
                 player.add_to_hand(resources_target)
-                player.CatanPlayer(accept).remove_from_hand( resources_target)
+                player.CatanPlayer(accept).remove_from_hand(resources_target)
             for i in range(amount2):
                 player.CatanPlayer(accept).add_to_hand(resources_own)
-                player.remove_from_hand( resources_own)
+                player.remove_from_hand(resources_own)
 
 
 if __name__ == '__main__':
