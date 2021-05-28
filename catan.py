@@ -531,8 +531,8 @@ class CatanBoard:
                 while player_hand[choice] == 0:
                     print("you don't have that card.")
                     choice = input("enter a card you have: ")
-                remove_from_hand(self, choice)
-                add_to_bank(self, choice)
+                player.remove_from_hand(self, choice)
+                cards.add_to_bank(self, choice)
             print('You now have the following cards:')
             for resource in RESOURCE_NAMES2:
                 print(player_hand[resource], ' ', resource)
