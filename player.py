@@ -31,6 +31,16 @@ class CatanPlayer:
         self.dev_card[card] += 1
         if card == DEVELOPMENT_CARD_NAMES[1]:
              catan.player_points[player_number] += 1
+            
+    def show_dev(self):
+        print('Here are the options:')
+        for i in range(1,6):
+            print(i,': ',DEVELOPMENT_CARD_NAMES[i-1])
+    
+    def dev_convert(self, number):
+        '''convert from number to dev_card'''
+        dev = DEVELOPMENT_CARD_NAMES[number - 1]
+        return dev
     
 
     def print_hand(self):
