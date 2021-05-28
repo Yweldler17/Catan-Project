@@ -23,6 +23,11 @@ class CatanPlayer:
         print('Player Number: {}', format(self.player_number))
         for key, value in self.hand.items():
             print(key, value)
+            
+    def show_options(self):
+        for i in range(1,6):
+            print(i,': ',RESOURCE_NAMES[i-1])
+
 
     def set_settlement(self, board):
         """
