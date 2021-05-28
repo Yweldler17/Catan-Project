@@ -475,6 +475,7 @@ class CatanBoard:
         choice = int(input('choose the dev_card: '))
         choice = player.dev_convert(choice)
         player.add_dev(choice)
+        self.dev_bank.remove_from_bank(choice)
         player.remove_from_hand('wool' )
         player.remove_from_hand('ore' )
         player.remove_from_hand('hay' )
