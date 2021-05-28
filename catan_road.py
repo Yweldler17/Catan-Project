@@ -8,7 +8,7 @@ class Road:
             1: coordinate_1,
             2: coordinate_2
         }
-        self.status = 'open'
+        self.status = 'Open'
 
     def set_status(self, status):
         self.status = 'status'

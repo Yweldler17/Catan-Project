@@ -48,7 +48,17 @@ class CatanPlayer:
         """
         ################################ Insert/Modify CODE HERE ##################################
 
-        position = int(input('insert argument'))
+        valid_choice = False
+        while not valid_choice:
+            position = int(input('Place your Settlement'))
+            if position >= 0 and position <= 53:
+                if board.coordinate_list[position].status == "Open":
+                    valid_choice = True
+                else:
+                    print("Position is unavailable")
+            else:
+                print("Position is invalid")
+
         return position
 
     def set_road(self, board):
@@ -59,8 +69,18 @@ class CatanPlayer:
         position -- integer 0-71
         """
         ################################ Insert/Modify CODE HERE ##################################
-        position = int(input('insert argument'))
-        return position
+        valid_road = False
+        while not valid_road:
+            road_position = int(input('Place your Road'))
+            if road_position >= 0 and road_position <= 71:
+                if board.road_list[road_position].status == "Open":
+                    valid_road = True
+                else:
+                    print("Position is unavailable")
+            else:
+                print("Position is invalid")
+
+        return road_position
 
     def turn_choice(self, board):
         """
@@ -126,9 +146,30 @@ class CatanPlayer:
 
         """
         ################################ Insert/Modify CODE HERE ##################################
-        position1, position2 = int(input('insert argument')), int(
-            input('insert argument'))
-        return position1, position2
+
+        valid_road_1 = False
+        while not valid_road_1:
+            road_position_1 = int(input('Place your Road'))
+            if road_position_1 >= 0 and road_position_1 <= 71:
+                if board.road_list[road_position_1].status == "Open":
+                    valid_road_1 = True
+                else:
+                    print("Position is unavailable")
+            else:
+                print("Position is invalid")
+
+        valid_road_2 = False
+        while not valid_road_2:
+            road_position_2 = int(input('Place your Road'))
+            if road_position_2 >= 0 and road_position_2 <= 71:
+                if board.road_list[road_position_2].status == "Open":
+                    valid_road_2 = True
+                else:
+                    print("Position is unavailable")
+            else:
+                print("Position is invalid")
+
+        return road_position_1, road_position_2
 
     def play_plenty(self, board):
         """
@@ -216,7 +257,17 @@ class CatanPlayer:
             else:
                 print("Position is invalid")
 
-        road_position = int(input('Place your Road'))
+        valid_road = False
+        while not valid_road:
+            road_position = int(input('Place your Road'))
+            if road_position >= 0 and road_position <= 71:
+                if board.road_list[road_position].status == "Open":
+                    valid_road = True
+                else:
+                    print("Position is unavailable")
+            else:
+                print("Position is invalid")
+
         return settle_position, road_position
 
     def start_settelment_first(self, board):
@@ -238,7 +289,17 @@ class CatanPlayer:
             else:
                 print("Position is invalid")
 
-        road_position = int(input('Place your Road'))
+        valid_road = False
+        while not valid_road:
+            road_position = int(input('Place your Road'))
+            if road_position >= 0 and road_position <= 71:
+                if board.road_list[road_position].status == "Open":
+                    valid_road = True
+                else:
+                    print("Position is unavailable")
+            else:
+                print("Position is invalid")
+
         return settle_position, road_position
 
 
