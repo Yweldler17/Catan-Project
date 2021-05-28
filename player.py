@@ -29,7 +29,6 @@ class CatanPlayer:
         
     def add_dev(self, card):
         self.dev_card[card] += 1
-        
         if card == DEVELOPMENT_CARD_NAMES[1]:
              catan.player_points[player_number] += 1
             
