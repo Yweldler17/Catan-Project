@@ -64,6 +64,8 @@ if __name__ == '__main__':
             print('It is turn of player number:{0}'.format(
                 current_player.player_number))
             choice = 42  # random positive number for initialisation
+            rolled = False
+            choice = 42  # random positive number for initialisation
             while choice > 0:
                 # making safety working copy of board (can be changed in later
                 # implementation to only visible data)
@@ -73,62 +75,70 @@ if __name__ == '__main__':
                 # print statements for debugging
                 print(choice)
                 # choices below are moves available to a player
-                if choice == 2:
-                    # roll dice
-                    dice_number = board.roll_dice(player_number, players)
-                    print(dice_number)
-                    if dice_number == 7:
-                        for p_nr in range(4):
-                            p = players[p_nr]
-                            resources = p.discard_half(board_safety_copy)
-                            board.discard_half(p)
-                        # steal resource after everybody discarded cards
-                        position, target_player_number = current_player.steal_card(
-                            board_safety_copy)
-                        board.steal_card(
-                            player_number, position, target_player_number)
-                # choice 3 is to buy a settlement
-                if choice == 3:
-                    position = current_player.set_settlement(board_safety_copy)
-                    board.buy_settlement(players, player_number, position)
-                # choice 4 is to buy a city
-                if choice == 4:
-                    position = current_player.set_city(board_safety_copy)
-                    board.buy_city(player_number, position)
-                # choice 4 is to buy a road
-                if choice == 5:
-                    position = current_player.set_road(board_safety_copy)
-                    board.buy_road(player_number, position)
-                if choice == 6:
-                    board.buy_dev_card(player_number)
-                if choice == 8:
+                if choice == 1:
                     position, target_player_number = current_player.steal_card(
                         board_safety_copy)
                     board.play_knight(player_number, position,
                                       target_player_number)
-                if choice == 9:
-                    position1, position2 = current_player.play_roads(
-                        board_safety_copy)
-                    board.play_roads(player_number, position1, position2)
-                if choice == 10:
-                    resource1, resource2 = current_player.play_plenty(
-                        board_safety_copy)
-                    board.play_plenty(player_number, resource1, resource2)
-                if choice == 11:
-                    resource = current_player.play_mono(board_safety_copy)
-                    board.play_mono(player_number, resource)
-                if choice == 12:
-                    resource_own, resource_bank = current_player.trade_bank(
-                        board_safety_copy)
-                    board.trade_bank(
-                        player_number, resource_own, resource_bank)
-                if choice == 13:
-                    resources_own, amount, resources_target, amount2 = current_player.trade_offer(
-                        board_safety_copy)
-                    #answer_target = players[target_player_number].trade_answer(board_safety_copy, resources_own,
-                                                                              # resources_target)
+                if choice == 2:
+                    # roll dice
+                    if not rolled:
+                        rolled = True
+                        dice_number = board.roll_dice(player_number, players)
+                        print(dice_number)
+                        if dice_number == 7:
+                            for p_nr in range(4):
+                                p = players[p_nr]
+                                resources = p.discard_half(board_safety_copy)
+                                board.discard_half(p)
+                            # steal resource after everybody discarded cards
+                            position, target_player_number = current_player.steal_card(
+                                board_safety_copy)
+                            board.steal_card(
+                                player_number, position, target_player_number)
+                    else:
+                        print("Already rolled this turn! No cheating!")
+                        # choice 3 is to buy a settlement
+                if rolled:
+                    if choice == 3:
+                        position = current_player.set_settlement(
+                            board_safety_copy)
+                        board.buy_settlement(players, player_number, position)
+                    # choice 4 is to buy a city
+                    if choice == 4:
+                        position = current_player.set_city(board_safety_copy)
+                        board.buy_city(player_number, position)
+                    # choice 5 is to buy a road
+                    if choice == 5:
+                        position = current_player.set_road(board_safety_copy)
+                        board.buy_road(player_number, position)
+                    if choice == 6:
+                        board.buy_dev_card(player_number)
+                    if choice == 7:
+                        position1, position2 = current_player.play_roads(
+                            board_safety_copy)
+                        board.play_roads(player_number, position1, position2)
+                    if choice == 8:
+                        resource1, resource2 = current_player.play_plenty(
+                            board_safety_copy)
+                        board.play_plenty(player_number, resource1, resource2)
+                    if choice == 9:
+                        resource = current_player.play_mono(board_safety_copy)
+                        board.play_mono(player_number, resource)
+                    if choice == 10:
+                        resource_own, resource_bank = current_player.trade_bank(
+                            board_safety_copy)
+                        board.trade_bank(
+                            player_number, resource_own, resource_bank)
+                    if choice == 11:
+                        resources_own, amount, resources_target, amount2 = current_player.trade_offer(
+                            board_safety_copy)
+                    # answer_target = players[target_player_number].trade_answer(board_safety_copy, resources_own,
+                        # resources_target)
                     board.trade_offer(player_number, resources_own, amount, resources_target,
                                       amount2)
+                else:
+                    print('You must roll the dice first. Did you read the rule book??')
 
             game_end, winner = board.check_points()
             if game_end:

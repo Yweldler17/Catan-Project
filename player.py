@@ -24,15 +24,18 @@ class CatanPlayer:
         ################################ Insert/Modify Comments HERE ##################################
 
         generate buy_settlement input:
-        output -- position -- integer 0-54 """
+        output -- position -- integer 0-53 """
         ################################ Insert/Modify CODE HERE ##################################
         valid_choice = False
         while not valid_choice:
-            position = int(input('Insert settlement you wish to buy. 0-54'))
-            if board.coordinate_list[position].status == "Open":
-                valid_choice = True
+            position = int(input('Place your Settlement'))
+            if position >= 0 and position <= 53:
+                if board.coordinate_list[position].status == "Open":
+                    valid_choice = True
+                else:
+                    print("Position is unavailable")
             else:
-                print("Position is unavailable")
+                print("Position is invalid")
 
         return position
 
@@ -69,7 +72,19 @@ class CatanPlayer:
 
         """
         ################################ Insert/Modify CODE HERE ##################################
-        choice = int(input('choose an action'))
+        print('0: End Turn')
+        print('1: Use Knight ')
+        print('2: Roll Dice')
+        print('3: Purchase Settlement')
+        print('4: Purchase City ')
+        print('5: Purchase Road ')
+        print('6: Purchase Development Card')
+        print('7: Use Road Building')
+        print('8: Use Year of Plenty')
+        print('9: Use Monopoly')
+        print('10: Trade with Bank')
+        print('11: Trade with a Player')
+        choice = int(input('Please select from the above options'))
         return choice
 
     def discard_half(self, board):
@@ -164,8 +179,10 @@ class CatanPlayer:
                 sheep --integer 0-19
         """
         ################################ Insert/Modify CODE HERE ##################################
-        resources_own, amount, resources_target, amount2 = input('enter resource you are offering: '),
-        int(input('enter amount of cards: ')), input('enter the resource you are asking for: '), int(input('enter the amount: ))  
+        resources_own, amount, resources_target, amount2 = input(
+            'enter resource you are offering: '),
+        int(input('enter amount of cards: ')), input(
+            'enter the resource you are asking for: '), int(input('enter the amount: '))
 
         return resources_own, amount, resources_target, amount2
 
@@ -191,10 +208,13 @@ class CatanPlayer:
         valid_choice = False
         while not valid_choice:
             settle_position = int(input('Place your Settlement'))
-            if board.coordinate_list[settle_position].status == "Open":
-                valid_choice = True
+            if settle_position >= 0 and settle_position <= 53:
+                if board.coordinate_list[settle_position].status == "Open":
+                    valid_choice = True
+                else:
+                    print("Position is unavailable")
             else:
-                print("Position is unavailable")
+                print("Position is invalid")
 
         road_position = int(input('Place your Road'))
         return settle_position, road_position
@@ -210,10 +230,13 @@ class CatanPlayer:
         valid_choice = False
         while not valid_choice:
             settle_position = int(input('Place your Settlement'))
-            if board.coordinate_list[settle_position].status == "Open":
-                valid_choice = True
+            if settle_position >= 0 and settle_position <= 53:
+                if board.coordinate_list[settle_position].status == "Open":
+                    valid_choice = True
+                else:
+                    print("Position is unavailable")
             else:
-                print("Position is unavailable")
+                print("Position is invalid")
 
         road_position = int(input('Place your Road'))
         return settle_position, road_position

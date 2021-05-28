@@ -87,7 +87,7 @@ class CatanBoard:
         desert_tile_nr = np.where(self.board_resources == res_dict["desert"])
         self.robber = desert_tile_nr
         self.board_resources[zero_tile_nr], self.board_resources[desert_tile_nr] = self.board_resources[desert_tile_nr], \
-                                                                                   self.board_resources[zero_tile_nr]
+            self.board_resources[zero_tile_nr]
 
         # bank resources  "brick", "ore", "hay", "wood", "sheep"
         self.bank = cards.Res_cards()  # np.array([19, 19, 19, 19])
@@ -298,19 +298,19 @@ class CatanBoard:
                 if tile.coordinates[index] == current_coordinate:
                     if index > 0 and index < 5:
                         self.coordinate_list[tile.coordinates[index - 1]
-                        ].status = "Unavailable"
+                                             ].status = "Unavailable"
                         self.coordinate_list[tile.coordinates[index + 1]
-                        ].status = "Unavailable"
+                                             ].status = "Unavailable"
                     elif index == 5:
                         self.coordinate_list[tile.coordinates[index - 1]
-                        ].status = "Unavailable"
+                                             ].status = "Unavailable"
                         self.coordinate_list[tile.coordinates[0]
-                        ].status = "Unavailable"
+                                             ].status = "Unavailable"
                     else:
                         self.coordinate_list[tile.coordinates[5]
-                        ].status = "Unavailable"
+                                             ].status = "Unavailable"
                         self.coordinate_list[tile.coordinates[index + 1]
-                        ].status = "Unavailable"
+                                             ].status = "Unavailable"
 
     def start_settlement_first(self, player_number, settle_position, road_position):
         """changes CatanBoard()/self if possible according to the rules of
@@ -630,15 +630,19 @@ class CatanBoard:
         answer_target -- TRUE for yes or FALSE for no
         """
         ################################ Insert/Modify CODE HERE ##################################
-        print('The current player is offering to exchange ',amount,' ',resources_own)
-        print('in exchange for ',amount2,' ',resources_target,'.')
-        accept = int(input('enter number of player who accepts the offer, enter ',player_nr,' if no-one: '))
-        if accept != player_nr:
+        print('The current player is offering to exchange ',
+              amount, ' ', resources_own)
+        print('in exchange for ', amount2, ' ', resources_target, '.')
+        accept = int(input(
+            'enter number of player who accepts the offer, enter ', player_number, ' if no-one: '))
+        if accept != player_number:
             for i in range(amount):
-                player.hand[resources_own].append(player.CatanPlayer(accept).hand[resources_own].pop(0))
+                player.hand[resources_own].append(
+                    player.CatanPlayer(accept).hand[resources_own].pop(0))
             for i in range(amount2):
-                player.CatanPlayer(accept).hand[resources_target].append( player.hand[resources_target].pop(0))
-        
+                player.CatanPlayer(accept).hand[resources_target].append(
+                    player.hand[resources_target].pop(0))
+
 
 if __name__ == '__main__':
     """
