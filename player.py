@@ -214,13 +214,16 @@ class CatanPlayer:
         """
         ################################ Insert/Modify Comments HERE ##################################
 
-        resource_own -- string-resource name
-        resource_bank -- string-resource name
+        resource_own -- int-resource name
+        resource_bank -- int-resource name
 
         """
         ################################ Insert/Modify CODE HERE ##################################
+        self.show_options()
         resource_own, resource_bank = int(input('Select resource to trade in')), int(
             input('insert resource to receive'))
+        resources_own = self.convert(resources_own)
+        resources_bank = self.convert(resources_bank)
         # validating that player has 4 such cards & bank has 1
         return resource_own, resource_bank
 
