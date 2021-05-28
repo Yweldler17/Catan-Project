@@ -19,6 +19,11 @@ class CatanPlayer:
     def remove_from_hand(self, card):
         self.hand[card] -= 1
 
+    def print_hand(self):
+        print('Player Number: {}', format(self.player_number))
+        for key, value in self.hand.items():
+            print(key, value)
+
     def set_settlement(self, board):
         """
         ################################ Insert/Modify Comments HERE ##################################
@@ -52,7 +57,7 @@ class CatanPlayer:
         while not valid_choice:
             position = int(input('Place your City'))
             if position >= 0 and position <= 53:
-                if board.coordinate_list[position].status == "Open":
+                if board.settlements[position] == self.player_number:
                     valid_choice = True
                 else:
                     print("Position is unavailable")
@@ -104,6 +109,7 @@ class CatanPlayer:
         print('9: Use Monopoly')
         print('10: Trade with Bank')
         print('11: Trade with a Player')
+        print('12: Display Hand')
         choice = int(input('Please select from the above options'))
         return choice
 

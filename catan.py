@@ -377,13 +377,17 @@ class CatanBoard:
         return game_end, winner
 
     def check_hand(self, players, player_num, resources):
+        """ takes a list of players and the cost of purchase
+        checks if this player has the resources to make this purchase
+        if yes, then the purchase is completed"""
         valid = True
         for resource in RESOURCE_NAMES2:
-            if resources[resource] > 0 and players[player_num].hand[resource] >= resources[resource]:
-                print('Has enough!!!!', resource)
-            else:
-                print('Not enough ', resource)
-                valid = False
+            if resources[resource] > 0:
+                if players[player_num].hand[resource] >= resources[resource]:
+                    print('Has enough', resource)
+                else:
+                    print('Not enough ', resource)
+                    valid = False
 
         if valid:
             for resource in RESOURCE_NAMES2:
@@ -418,11 +422,7 @@ class CatanBoard:
             self.disable_adjacent_coordinates(position)
             self.coordinate_list[position].status = "Unavailable"
 
-        for i in range(5):
-            print(self.bank.cards[RESOURCE_NAMES2[i]])
-            print(players[player_number].hand[RESOURCE_NAMES2[i]])
-
-    def buy_city(self, player_number, position):
+    def buy_city(self, players, player_number, position):
         """changes CatanBoard()/self if possible according to the rules of building a city:
 
         ################################ Insert/Modify Comments HERE ##################################
@@ -434,15 +434,17 @@ class CatanBoard:
         """
 
         ################################ Insert/Modify CODE HERE ##################################
-
-        valid_choice = False
-        while not valid_choice:
-            if self.settlements[position] == player_number:
-                self.settlements[position] = -1
-                self.cities[position] = player_number
-                valid_choice = True
-            else:
-                print("select a current settlement position")
+        cost = {
+            "hay": 2,
+            "wood": 0,
+            "brick": 0,
+            "sheep": 0,
+            "ore": 3
+        }
+        valid = self.check_hand(players, player_number, cost)
+        if valid:
+            self.settlements[position] = -1
+            self.cities[position] = player_number
 
     def buy_road(self, player_number, position):
         """changes CatanBoard()/self if possible according to the rules of building a road:

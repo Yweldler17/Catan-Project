@@ -73,7 +73,6 @@ if __name__ == '__main__':
                 # player makes the choice what to do the choices are integers 0 or negative integer is turn finished
                 choice = current_player.turn_choice(board_safety_copy)
                 # print statements for debugging
-                print(choice)
                 # choices below are moves available to a player
                 if choice == 1:
                     position, target_player_number = current_player.steal_card(
@@ -89,7 +88,7 @@ if __name__ == '__main__':
                         if dice_number == 7:
                             for p_nr in range(4):
                                 p = players[p_nr]
-                                resources = p.discard_half(board_safety_copy)
+                                # resources = p.discard_half(board_safety_copy)
                                 board.discard_half(p)
                             # steal resource after everybody discarded cards
                             position, target_player_number = current_player.steal_card(
@@ -133,10 +132,13 @@ if __name__ == '__main__':
                     if choice == 11:
                         resources_own, amount, resources_target, amount2 = current_player.trade_offer(
                             board_safety_copy)
-                    # answer_target = players[target_player_number].trade_answer(board_safety_copy, resources_own,
+                        # answer_target = players[target_player_number].trade_answer(board_safety_copy, resources_own,
                         # resources_target)
-                    board.trade_offer(player_number, resources_own, amount, resources_target,
-                                      amount2)
+                        board.trade_offer(player_number, resources_own, amount, resources_target,
+                                          amount2)
+                    if choice == 12:
+                        current_player.print_hand()
+
                 else:
                     print('You must roll the dice first. Did you read the rule book??')
 
