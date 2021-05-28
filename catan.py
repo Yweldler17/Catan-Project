@@ -472,8 +472,8 @@ class CatanBoard:
         ################################ Insert/Modify CODE HERE ##################################
         player.show_dev()
         choice = int(input('choose the dev_card: '))
-        choice = dev_convert(choice)
-        add_dev(choice)
+        choice = player.dev_convert(choice)
+        player.add_dev(choice)
         player.remove_from_hand('wool' )
         player.remove_from_hand('ore' )
         player.remove_from_hand('hay' )
