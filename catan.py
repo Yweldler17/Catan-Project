@@ -518,23 +518,24 @@ class CatanBoard:
         player_hand = player.hand
         cards_to_discard = 0  # checking for min of 8 cards
         for resource in RESOURCE_NAMES2:
-            cards_to_discard += len(player_hand[resource])
+            cards_to_discard += player_hand[resource]
         if cards_to_discard >= 8:
             print('You have to return ', cards_to_discard // 2, ' cards.')
             print('You have the following cards:')
             for resource in RESOURCE_NAMES2:
-                print(len(player_hand[resource]), ' ', resource)
+                print(player_hand[resource], ' ', resource)
             for resource in range(cards_to_discard // 2):
                 choice = input("enter the card you want to return: ")
                 while not choice in RESOURCE_NAMES2:
                     choice = input("enter a correct resource: ")
-                while len(player_hand[choice]) == 0:
+                while player_hand[choice] == 0:
                     print("you don't have that card.")
                     choice = input("enter a card you have: ")
-                self.bank[choice].append(player_hand[choice].pop(0))
+                remove_from_hand(self, choice)
+                add_to_bank(self, choice)
             print('You now have the following cards:')
             for resource in RESOURCE_NAMES2:
-                print(len(player_hand[resource]), ' ', resource)
+                print(player_hand[resource], ' ', resource)
 
     def steal_card(self, player_number, position, target_player_number):
         """changes CatanBoard()/self if possible according to the rules of discarding cards if 7 rolled
