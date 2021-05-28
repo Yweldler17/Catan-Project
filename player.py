@@ -27,6 +27,11 @@ class CatanPlayer:
     def show_options(self):
         for i in range(1,6):
             print(i,': ',RESOURCE_NAMES[i-1])
+            
+    def convert(self, number):
+        '''convert from number to resource'''
+        resource = RESOURCE_NAMES[number - 1]
+        return resource
 
 
     def set_settlement(self, board):
