@@ -25,6 +25,7 @@ class CatanPlayer:
             print(key, value)
             
     def show_options(self):
+        print('Here are the options:')
         for i in range(1,6):
             print(i,': ',RESOURCE_NAMES[i-1])
             
@@ -236,10 +237,13 @@ class CatanPlayer:
                 sheep --integer 0-19
         """
         ################################ Insert/Modify CODE HERE ##################################
-        resources_own, amount, resources_target, amount2 = input(
-            'enter resource you are offering: '),
-        int(input('enter amount of cards: ')), input(
-            'enter the resource you are asking for: '), int(input('enter the amount: '))
+        self.show_options()
+        resources_own, amount, resources_target, amount2 = int(input(
+            'enter resource you are offering: ')),
+        int(input('enter amount of cards: ')), int(input(
+            'enter the resource you are asking for: ')), int(input('enter the amount: '))
+        resources_own = self.convert(resources_own)
+        resources_target = self.convert(resources_target)
 
         return resources_own, amount, resources_target, amount2
 
