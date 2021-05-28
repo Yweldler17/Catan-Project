@@ -474,14 +474,17 @@ class CatanBoard:
         player.show_dev()
         choice = int(input('choose the dev_card: '))
         choice = player.dev_convert(choice)
-        player.add_dev(choice)
-        self.dev_bank.remove_from_bank(choice)
-        player.remove_from_hand('wool' )
-        player.remove_from_hand('ore' )
-        player.remove_from_hand('hay' )
-        self.bank.add_to_bank('wool')
-        self.bank.add_to_bank('ore')
-        self.bank.add_to_bank('hay')
+        if self.dev_bank[choice] != 0:
+            player.add_dev(choice)
+            self.dev_bank.remove_from_bank(choice)
+            player.remove_from_hand('wool' )
+            player.remove_from_hand('ore' )
+            player.remove_from_hand('hay' )
+            self.bank.add_to_bank('wool')
+            self.bank.add_to_bank('ore')
+            self.bank.add_to_bank('hay')
+        else:
+            print('Card is not in bank.')
         
 
     def add_tile_resources(self, tile, player_list):
