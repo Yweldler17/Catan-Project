@@ -50,7 +50,7 @@ class CatanPlayer:
 
         valid_choice = False
         while not valid_choice:
-            position = int(input('Place your Settlement'))
+            position = int(input('Place your City'))
             if position >= 0 and position <= 53:
                 if board.coordinate_list[position].status == "Open":
                     valid_choice = True
@@ -257,10 +257,21 @@ class CatanPlayer:
             else:
                 print("Position is invalid")
 
+        # finding roads adjacent to the settlement
+        available_roads = []
+        for road in board.road_list:
+            for key in road.coordinates:
+                if road.coordinates[key] == settle_position:
+                    available_roads.append(road.index)
+
+        print('please select from the following road options')
+        for road in available_roads:
+            print(road)
+
         valid_road = False
         while not valid_road:
             road_position = int(input('Place your Road'))
-            if road_position >= 0 and road_position <= 71:
+            if road_position in available_roads and road_position >= 0 and road_position <= 71:
                 if board.road_list[road_position].status == "Open":
                     valid_road = True
                 else:
@@ -289,10 +300,21 @@ class CatanPlayer:
             else:
                 print("Position is invalid")
 
+        # finding roads adjacent to the settlement
+        available_roads = []
+        for road in board.road_list:
+            for key in road.coordinates:
+                if road.coordinates[key] == settle_position:
+                    available_roads.append(road.index)
+
+        print('please select from the following road options')
+        for road in available_roads:
+            print(road)
+
         valid_road = False
         while not valid_road:
             road_position = int(input('Place your Road'))
-            if road_position >= 0 and road_position <= 71:
+            if road_position in available_roads and road_position >= 0 and road_position <= 71:
                 if board.road_list[road_position].status == "Open":
                     valid_road = True
                 else:
