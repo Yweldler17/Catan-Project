@@ -18,7 +18,7 @@ class CatanPlayer:
             
         self.dev_card = {}
         for i in DEVELOPMENT_CARD_NAMES:
-            self.dev_card = 0
+            self.dev_card[i] = 0
         
 
     def add_to_hand(self, card):
@@ -29,6 +29,7 @@ class CatanPlayer:
         
     def add_dev(self, card):
         self.dev_card[card] += 1
+        
         if card == DEVELOPMENT_CARD_NAMES[1]:
              catan.player_points[player_number] += 1
             
