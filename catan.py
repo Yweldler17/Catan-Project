@@ -92,6 +92,7 @@ class CatanBoard:
         # bank resources  "brick", "ore", "hay", "wood", "sheep"
         self.bank = cards.Res_cards()  # np.array([19, 19, 19, 19])
         # player_points player0, player1, player2, player3
+        self.dev_bank = dev_cards.DevCards()
         self.player_points = [0, 0, 0, 0]
         # longest road player_number initialisation with -1
         self.longest_road = -1
