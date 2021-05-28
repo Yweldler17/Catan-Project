@@ -5,6 +5,7 @@ import catan_tile
 import catan_road
 import coordinate
 import cards
+import dev_cards
 
 # List of resources available to be distributed on the board
 RESOURCE_NAMES = ["desert", "brick", "ore", "hay", "wood", "sheep"]
