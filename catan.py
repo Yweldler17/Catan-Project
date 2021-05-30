@@ -621,7 +621,7 @@ class CatanBoard:
         self.roads[position1] = player_number
         self.roads[position2] = player_number
 
-    def play_plenty(self, player_number, resource1, resource2):
+    def play_plenty(self, player, resource1, resource2):
         """changes CatanBoard()/self if possible according to the rules of playing the years of plenty dev card :
 
         ################################ Insert/Modify Comments HERE ##################################
@@ -631,6 +631,10 @@ class CatanBoard:
         resource1 -- integer 1-5
         """
         ################################ Insert/Modify CODE HERE ##################################
+        self.bank.remove_from_bank(RESOURCE_NAMES2[resource1])
+        self.bank.remove_from_bank(RESOURCE_NAMES2[resource2])
+        player.add_to_bank(RESOURCE_NAMES2[resource1])
+        player.add_to_bank(RESOURCE_NAMES2[resource2])
 
     def play_mono(self, player_number, resource):
         """changes CatanBoard()/self if possible according to the rules of playing monopoly dev card :
@@ -655,12 +659,12 @@ class CatanBoard:
         ################################ Insert/Modify CODE HERE ##################################
 
         for i in range(4):
-            player.remove_from_hand(resource_own)
+            player.remove_from_hand(RESOURCE_NAMES2[resource_own])
             # player giving the bank 4 cards
-            self.bank.add_to_bank(resource_own)
+            self.bank.add_to_bank(RESOURCE_NAMES2[resource_own])
         # player taking one card from the bank
-        player.add_to_hand(resource_bank)
-        self.bank.remove_from_bank(resource_bank)
+        player.add_to_hand(RESOURCE_NAMES2[resource_bank])
+        self.bank.remove_from_bank(RESOURCE_NAMES2[resource_bank])
 
     def trade_offer(self, player_number, resources_own, amount, resources_target, amount2):
         """changes CatanBoard()/self if possible according to the rules bank trading including ports:
@@ -686,11 +690,13 @@ class CatanBoard:
             'enter number of player who accepts the offer, enter ', player_number, ' if no-one: '))
         if accept != player_number:
             for i in range(amount):
-                player.add_to_hand(resources_target)
-                player.CatanPlayer(accept).remove_from_hand(resources_target)
+                player.add_to_hand(RESOURCE_NAMES2[resources_target])
+                player.CatanPlayer(accept).remove_from_hand(
+                    RESOURCE_NAMES2[resources_target])
             for i in range(amount2):
-                player.CatanPlayer(accept).add_to_hand(resources_own)
-                player.remove_from_hand(resources_own)
+                player.CatanPlayer(accept).add_to_hand(
+                    RESOURCE_NAMES2[resources_own])
+                player.remove_from_hand(RESOURCE_NAMES2[resources_own])
 
 
 if __name__ == '__main__':

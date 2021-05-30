@@ -133,7 +133,8 @@ if __name__ == '__main__':
                     if choice == 8:
                         resource1, resource2 = current_player.play_plenty(
                             board_safety_copy)
-                        board.play_plenty(player_number, resource1, resource2)
+                        board.play_plenty(
+                            players[player_number], resource1, resource2)
                     if choice == 9:
                         resource = current_player.play_mono(board_safety_copy)
                         board.play_mono(player_number, resource)

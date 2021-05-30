@@ -205,9 +205,13 @@ class CatanPlayer:
 
         """
         ################################ Insert/Modify CODE HERE ##################################
-
-        resource1, resource2 = int(input('insert argument')), int(
-            input('insert argument'))
+        print('0: Brick')
+        print('1: Ore')
+        print('2: Hay')
+        print('3: Wood')
+        print('4: Sheep')
+        resource1, resource2 = int(input('Select a Resource')), int(
+            input('Select another Resource'))
         return resource1, resource2
 
     def play_mono(self, board):
