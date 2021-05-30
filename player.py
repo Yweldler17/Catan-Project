@@ -11,53 +11,50 @@ class CatanPlayer:
     # settlements/roads, port options
     def __init__(self, player_number):
         self.player_number = player_number
-        
+
         self.hand = {}
         for i in RESOURCE_NAMES:
             self.hand[i] = 0
-            
+
         self.dev_card = {}
         for i in DEVELOPMENT_CARD_NAMES:
             self.dev_card[i] = 0
-        
 
     def add_to_hand(self, card):
         self.hand[card] += 1
 
     def remove_from_hand(self, card):
         self.hand[card] -= 1
-        
+
     def add_dev(self, card):
         self.dev_card[card] += 1
         if card == DEVELOPMENT_CARD_NAMES[1]:
-             catan.player_points[player_number] += 1
-            
+            catan.player_points[player_number] += 1
+
     def show_dev(self):
         print('Here are the options:')
-        for i in range(1,6):
-            print(i,': ',DEVELOPMENT_CARD_NAMES[i-1])
-    
+        for i in range(1, 6):
+            print(i, ': ', DEVELOPMENT_CARD_NAMES[i-1])
+
     def dev_convert(self, number):
         '''convert from number to dev_card'''
         dev = DEVELOPMENT_CARD_NAMES[number - 1]
         return dev
-    
 
     def print_hand(self):
         print('Player Number: {}', format(self.player_number))
         for key, value in self.hand.items():
             print(key, value)
-            
+
     def show_options(self):
         print('Here are the options:')
-        for i in range(1,6):
-            print(i,': ',RESOURCE_NAMES[i-1])
-            
+        for i in range(1, 6):
+            print(i, ': ', RESOURCE_NAMES[i-1])
+
     def convert(self, number):
         '''convert from number to resource'''
         resource = RESOURCE_NAMES[number - 1]
         return resource
-
 
     def set_settlement(self, board):
         """
@@ -132,19 +129,7 @@ class CatanPlayer:
 
         """
         ################################ Insert/Modify CODE HERE ##################################
-        print('0: End Turn')
-        print('1: Use Knight ')
-        print('2: Roll Dice')
-        print('3: Purchase Settlement')
-        print('4: Purchase City ')
-        print('5: Purchase Road ')
-        print('6: Purchase Development Card')
-        print('7: Use Road Building')
-        print('8: Use Year of Plenty')
-        print('9: Use Monopoly')
-        print('10: Trade with Bank')
-        print('11: Trade with a Player')
-        print('12: Display Hand')
+
         choice = int(input('Please select from the above options'))
         return choice
 

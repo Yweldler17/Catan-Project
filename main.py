@@ -66,6 +66,19 @@ if __name__ == '__main__':
             choice = 42  # random positive number for initialisation
             rolled = False
             choice = 42  # random positive number for initialisation
+            print('0: End Turn')
+            print('1: Use Knight ')
+            print('2: Roll Dice')
+            print('3: Purchase Settlement')
+            print('4: Purchase City ')
+            print('5: Purchase Road ')
+            print('6: Purchase Development Card')
+            print('7: Use Road Building')
+            print('8: Use Year of Plenty')
+            print('9: Use Monopoly')
+            print('10: Trade with Bank')
+            print('11: Trade with a Player')
+            print('12: Display Hand')
             while choice > 0:
                 # making safety working copy of board (can be changed in later
                 # implementation to only visible data)

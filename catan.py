@@ -647,7 +647,7 @@ class CatanBoard:
             self.bank.add_to_bank(resource_own)
         # player taking one card from the bank
         player.add_to_hand(resource_bank)
-        self.bank.remove_from_bank(resource_bank):
+        self.bank.remove_from_bank(resource_bank)
 
     def trade_offer(self, player_number, resources_own, amount, resources_target, amount2):
         """changes CatanBoard()/self if possible according to the rules bank trading including ports:
