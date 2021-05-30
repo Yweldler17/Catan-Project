@@ -473,7 +473,7 @@ class CatanBoard:
             self.roads[position] = player_number
             self.road_list[position].status = "Unavailable"
 
-    def buy_dev_card(self, player_number):
+    def buy_dev_card(self, players, player_number):
         """changes CatanBoard()/self if possible according to the rules of buying a development card card:
 
         ################################ Insert/Modify Comments HERE ##################################
@@ -484,6 +484,19 @@ class CatanBoard:
 
         """
         ################################ Insert/Modify CODE HERE ##################################
+
+        ######## I would suggest using code such as the next 10 lines instead.  ###########
+        # cost = {
+        #     "hay": 1,
+        #     "wood": 0,
+        #     "brick": 0,
+        #     "sheep": 1,
+        #     "ore": 1
+        # }
+        # valid = self.check_hand(players, player_number, cost)
+        # if valid:
+        #     players[player_number].add_dev(self.bank_devcards.pop())
+
         player.show_dev()
         choice = int(input('choose the dev_card: '))
         choice = player.dev_convert(choice)

@@ -125,7 +125,7 @@ if __name__ == '__main__':
                         position = current_player.set_road(board_safety_copy)
                         board.buy_road(players, player_number, position)
                     if choice == 6:
-                        board.buy_dev_card(player_number)
+                        board.buy_dev_card(players, player_number)
                     if choice == 7:
                         position1, position2 = current_player.play_roads(
                             board_safety_copy)
