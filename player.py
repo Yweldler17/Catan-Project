@@ -65,6 +65,8 @@ class CatanPlayer:
         ################################ Insert/Modify CODE HERE ##################################
         valid_choice = False
         while not valid_choice:
+            print('Select an open settlement')
+            print(board.get_available_settlements())
             position = int(input('Place your Settlement'))
             if position >= 0 and position <= 53:
                 if board.coordinate_list[position].status == "Open":
@@ -284,6 +286,8 @@ class CatanPlayer:
 
         valid_choice = False
         while not valid_choice:
+            print('Select an open settlement')
+            print(board.get_available_settlements())
             settle_position = int(input('Place your Settlement'))
             if settle_position >= 0 and settle_position <= 53:
                 if board.coordinate_list[settle_position].status == "Open":
@@ -327,6 +331,8 @@ class CatanPlayer:
         ################################ Insert/Modify CODE HERE ##################################
         valid_choice = False
         while not valid_choice:
+            print('Select an open settlement')
+            print(board.get_available_settlements())
             settle_position = int(input('Place your Settlement'))
             if settle_position >= 0 and settle_position <= 53:
                 if board.coordinate_list[settle_position].status == "Open":

@@ -314,6 +314,15 @@ class CatanBoard:
                         self.coordinate_list[tile.coordinates[index + 1]
                                              ].status = "Unavailable"
 
+    def get_available_settlements(self):
+        """ returns array of all availabel settlement coordinates"""
+        available = []
+        for index in range(len(self.coordinate_list)):
+            if self.coordinate_list[index].status == "Open":
+                available.append(index)
+
+        return available
+
     def start_settlement_first(self, player_number, settle_position, road_position):
         """changes CatanBoard()/self if possible according to the rules of
         building the first starting settelment with an road
